@@ -12,9 +12,9 @@ my @columns-of-interest = (
 );
 
 # Open input and output files
-my $input-file = 'data-raw/encuesta.csv';
 my $output-file = 'data/estudiantes.csv';
 
 # Create CSV parser
-my @data = csv( in=> $input-file, :sep(";"), :headers);
+my @data = csv( in=> 'data-raw/encuesta.csv', :encoding<utf8>, sep=> ";", headers => "auto");
+
 say @data;
