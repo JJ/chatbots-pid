@@ -17,3 +17,6 @@ ggplot(porcentajes_data, aes(x=Frecuencia, fill=Disciplina, y = Proporción)) +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ggsave("figures/frecuencias.png", width = 10, height = 6)
+
+frecuencia_tabla <- table( frecuencias_data$Frecuencia, frecuencias_data$Disciplina)
+chisq_frecuencia <- chisq.test(frecuencia_tabla)
