@@ -41,3 +41,6 @@ inc/
 # cpanfile.snapshot 
 .Rproj.user
 *.Rproj
+
+.RData
+.Rhistory
