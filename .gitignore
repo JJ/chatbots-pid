@@ -43,4 +43,5 @@ inc/
 *.Rproj
 
 .RData
-.Rhistory
+.Rhistory.precomp
+.precomp/
