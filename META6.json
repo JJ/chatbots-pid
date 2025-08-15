@@ -1,0 +1,15 @@
+{
+    "name" : "Chatbot::Survey",
+    "version" : "0.1.0",
+    "description" : "Modules for processing chatbot survey data",
+    "authors" : ["Your Name <your.email@example.com>"],
+    "auth" : "github:yourusername",
+    "depends" : [
+        "Text::CSV"
+    ],
+    "provides" : {
+        "Chatbot::Survey::SurveyProcessing": "lib/Chatbot/Survey/SurveyProcessing.rakumod"
+    },
+    "license" : "Artistic-2.0",
+    "source-url" : "https://github.com/yourusername/chatbot-survey"
+}
