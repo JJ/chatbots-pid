@@ -4,7 +4,7 @@ use v6.d;
 unit module Chatbot::Survey::SurveyProcessing;
 
 #| Translate disciplina
-sub translate-disciplina($disciplina) {
+sub translate-disciplina($disciplina) is export {
     given $disciplina {
         when /Ingenierías|Computación|Informática/ {
             return "TIC";
