@@ -45,3 +45,4 @@ inc/
 .RData
 .Rhistory.precomp
 .precomp/
+.Rhistory
