@@ -15,9 +15,11 @@ my @data-piloto = csv( in=> $input-file-piloto, :encoding<utf8>, sep=> ";", head
 my @output-data;
 
 for @data -> %row {
+    next if %row{"¿Cuál es su perfil?"} eq "Docente";
     @output-data.push: process-survey-row(%row, False);
 }
 for @data-piloto -> %row {
+    next if %row{"¿Cuál es su perfil?"} eq "Docente";
     @output-data.push: process-survey-row(%row, True);
 }
 
