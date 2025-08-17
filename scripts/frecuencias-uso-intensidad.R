@@ -37,12 +37,27 @@ for ( i in columnas[[1]] ) {
     cat("✅ La prueba de chi-cuadrado indica que hay una diferencia significativa en la frecuencia de uso de 📈", i, "📈 con p-value ", chisq_frecuencia$p.value,"\n")
   }
 
+  porcentajes_data <-  frecuencias_uso_data %>% group_by(.data[[i]], Frecuencia) %>%
+    summarise(Número = n()) %>%
+    mutate(Proporción = Número / sum(Número))
+
+  porcentajes_data$Frecuencia <- factor(porcentajes_data$Frecuencia,
+                                        levels = c( "Nunca", "Casi nunca", "A veces", "Casi siempre", "Siempre"))
+
+  porcentajes_data$Uso <- factor(porcentajes_data[[i]],
+                                 levels = c("No me parece útil", "Me gustaría hacerlo", "Lo he hecho"))
   ggplot(porcentajes_data, aes(x=Uso, fill=Frecuencia, y = Proporción)) +
     geom_bar( stat="identity", position="dodge") +
     labs(title=paste0("Empleo en diferentes aplicaciones por utilidad percibida ",i), x="Uso", y="Proporción") +
     theme_minimal() +
     theme(axis.text.x = element_text(angle = 45, hjust = 1))
   ggsave(paste0("figures/empleo-vs-utilidad-",i, ".png"), width = 10, height = 6)
+
+  frecuencia_tabla <- table(  frecuencias_data$Frecuencia, unname(unlist(frecuencias_data[i])))
+  chisq_frecuencia <- chisq.test(frecuencia_tabla)
+  if ( chisq_frecuencia$p.value < 0.05 ) {
+    cat("✅ La prueba de chi-cuadrado indica que hay una diferencia significativa erecuencia de uso de 📈", i, "📈 con p-value ", chisq_frecuencia$p.value,"\n")
+  }
 
 }
 
