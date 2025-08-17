@@ -25,7 +25,7 @@ for ( i in columnas[[1]] ) {
     labs(title=paste0("Frecuencia de uso ",i), x="Frecuencia", y="Proporción") +
     theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
-  ggsave(paste0("frecuencias-uso-",i, ".png"), width = 10, height = 6)
+  ggsave(paste0("figures/frecuencias-uso-",i, ".png"), width = 10, height = 6)
 }
 frecuencia_tabla <- table( frecuencias_data$Frecuencia, frecuencias_data$Disciplina)
 chisq_frecuencia <- chisq.test(frecuencia_tabla)
