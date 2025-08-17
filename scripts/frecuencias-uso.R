@@ -1,7 +1,7 @@
 library(ggplot2)
 library(dplyr)
 
-frecuencias_data <- read.csv("data/frecuencias-uso.csv", header = TRUE, sep = ";")
+frecuencias_data <- read.csv("data/frecuencias-uso.csv", header = TRUE, na.strings="", sep = ";")
 
 
 columnas <- strsplit("administrativas;burocracia;calendario;comunicacion-profesorado;feedback;generar-material;mejorar-calidad;preguntas-temario;preparar-examen;profesor-particular;resumen;traduccion", ";")
@@ -11,7 +11,7 @@ for ( i in columnas[[1]] ) {
   i <- gsub("-", ".", i)
   cat("Procesando disciplina:", i, "\n")
   frecuencias_uso_data  <-  data.frame(Disciplina = frecuencias_data$Disciplina,
-                                       frecuencias_data[i])
+                                       frecuencias_data[i]) %>% drop_na()
 
   porcentajes_data <-  frecuencias_uso_data %>% group_by(Disciplina,.data[[i]]) %>%
   summarise(Número = n()) %>%
