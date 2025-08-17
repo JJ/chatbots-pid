@@ -9,12 +9,11 @@ columnas <- strsplit("administrativas;burocracia;calendario;comunicacion-profeso
 for ( i in columnas[[1]] ) {
   # Change _ in i to .
   i <- gsub("-", ".", i)
-  cat("Procesando disciplina:", i, "\n")
   frecuencias_uso_data  <-  data.frame(Disciplina = frecuencias_data$Disciplina,
                                        frecuencias_data[i]) %>% drop_na()
 
   porcentajes_data <-  frecuencias_uso_data %>% group_by(Disciplina,.data[[i]]) %>%
-  summarise(Número = n()) %>%
+  summarise(Número = n(), .groups='drop') %>%
   mutate(Proporción = Número / sum(Número))
 
   porcentajes_data$Frecuencia <- factor(porcentajes_data[[i]],
@@ -26,6 +25,11 @@ for ( i in columnas[[1]] ) {
     theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
   ggsave(paste0("figures/frecuencias-uso-",i, ".png"), width = 10, height = 6)
+
+  frecuencia_tabla <- table( unname(unlist(frecuencias_data[i])), frecuencias_data$Disciplina)
+  chisq_frecuencia <- chisq.test(frecuencia_tabla)
+  if ( chisq_frecuencia$p.value < 0.05 ) {
+    cat("✅ La prueba de chi-cuadrado indica que hay una diferencia significativa en la frecuencia de uso de 📈", i, "📈 con p-value ", chisq_frecuencia$p.value,"\n")
+  }
 }
-frecuencia_tabla <- table( frecuencias_data$Frecuencia, frecuencias_data$Disciplina)
-chisq_frecuencia <- chisq.test(frecuencia_tabla)
+
