@@ -3,7 +3,6 @@ library(dplyr)
 
 frecuencias_data <- read.csv("data/frecuencias-uso.csv", header = TRUE, na.strings="", sep = ";")
 
-
 columnas <- strsplit("administrativas;burocracia;calendario;comunicacion-profesorado;feedback;generar-material;mejorar-calidad;preguntas-temario;preparar-examen;profesor-particular;resumen;traduccion", ";")
 
 for ( i in columnas[[1]] ) {
@@ -13,7 +12,7 @@ for ( i in columnas[[1]] ) {
                                        frecuencias_data[i]) %>% drop_na()
 
   porcentajes_data <-  frecuencias_uso_data %>% group_by(Disciplina,.data[[i]]) %>%
-  summarise(Número = n(), .groups='drop') %>%
+  summarise(Número = n()) %>%
   mutate(Proporción = Número / sum(Número))
 
   porcentajes_data$Frecuencia <- factor(porcentajes_data[[i]],
