@@ -38,7 +38,7 @@ centers_to_plot <- centers_df %>%
                   `traduccion` = 11)) %>%
   arrange(Center, Variable)
 
-ggplot(centers_to_plot, aes(x = as.factor(Variable), y = Value, group=Center,color= Center)) +
+ggplot(centers_to_plot, aes(x = as.factor(Variable), y = Value, group=Center,color= as.factor(Center))) +
   geom_line() +
   geom_point() +
   labs(title = "Centroides de los clusters de intensidad", y = "Valor del centroide") +
@@ -52,3 +52,27 @@ ggplot(centers_to_plot, aes(x = as.factor(Variable), y = Value, group=Center,col
                                    size=10, angle=45))
 
 ggsave("figures/centroides-clusters-intensidad.png", width = 10, height = 6)
+
+frecuencias_data$Cluster <- as.factor(clusters$cluster)
+
+frecuencias_data %>% group_by( Cluster, Disciplina ) %>%
+  summarise(Número = n()) %>%
+  mutate(Proporción = Número / sum(Número)) -> porcentaje_disciplina_por_cluster
+
+ggplot(porcentaje_disciplina_por_cluster, aes(x=Cluster, fill=Disciplina, y = Proporción)) +
+  geom_bar( stat="identity", position="stack") +
+  labs(title="Proporción de disciplinas por cluster de intensidad", x="Cluster", y="Proporción") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+ggsave("figures/porcentaje-disciplinas-por-cluster-intensidad.png", width = 10, height = 6)
+
+frecuencias_data %>% group_by( Disciplina, Cluster ) %>%
+  summarise(Número = n()) %>%
+  mutate(Proporción = Número / sum(Número)) -> porcentaje_cluster_por_disciplina
+
+ggplot(porcentaje_cluster_por_disciplina, aes(x=Disciplina, fill=Cluster, y = Proporción)) +
+  geom_bar( stat="identity", position="stack") +
+  labs(title="Proporción de clusters para cada disciplina", x="Disciplina", y="Proporción") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+ggsave("figures/porcentaje-cluster-por-disciplina-intensidad.png", width = 10, height = 6)
