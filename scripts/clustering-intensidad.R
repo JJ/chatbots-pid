@@ -76,3 +76,14 @@ ggplot(porcentaje_cluster_por_disciplina, aes(x=Disciplina, fill=Cluster, y = Pr
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ggsave("figures/porcentaje-cluster-por-disciplina-intensidad.png", width = 10, height = 6)
+
+frecuencias_data %>% group_by( Cluster, Disciplina ) %>%
+  summarise(Número = n()) %>%
+  mutate(Cantidad = Número ) -> cantidad_cluster_por_disciplina
+
+ggplot(cantidad_cluster_por_disciplina, aes(x=Cluster, fill=Disciplina, y = Cantidad)) +
+  geom_bar( stat="identity", position="stack") +
+  labs(title="Cantidad en cada cluster por disciplina", x="Cluster", y="Cantidad") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+ggsave("figures/cantidad-cluster-por-disciplina-intensidad.png", width = 10, height = 6)
