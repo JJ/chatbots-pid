@@ -1,6 +1,7 @@
 library(ggplot2)
 library(dplyr)
 library(tidyverse)
+library(factoextra)
 
 frecuencias_data <- read.csv("data/frecuencias-uso.csv", header = TRUE, na.strings="", sep = ";")
 frecuencias_data$mejorar.calidad <- NULL # Since we don't have data for some
@@ -9,12 +10,11 @@ frecuencias_data$mejorar.calidad <- NULL # Since we don't have data for some
 intensidad_vectores <- frecuencias_data %>%
   mutate(across(-Disciplina, ~ recode(.x, `No me parece útil` = 0, `Me gustaría hacerlo` = 1, `Lo he hecho` = 2)))
 
-# cluster all vectores in intensidad_vectores, using "Disciplina" as a class label
-
 intensidad_vectores <- intensidad_vectores %>%
-  select(-Disciplina) %>%
-  as.matrix()
+  select(-Disciplina)
 
+fviz_nbclust(intensidad_vectores, kmeans, method = "wss")
+ggsave("figures/nb-clusters-intensidad.png", width = 10, height = 6)
 clusters <- kmeans(intensidad_vectores, centers = 3, nstart = 25)
 
 # reorganize cluster$centers in three columns, the first column will have the center number, the second the order of the column and the third the value of that element of the center
