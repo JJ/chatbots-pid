@@ -60,7 +60,6 @@ for @data-piloto -> %row {
     @output-data.push: %translated;
 }
 
-say @output-data[*-1];
 csv( in => @output-data, out => $output-file, sep=> ";");
 
 
