@@ -38,9 +38,17 @@ centers_to_plot <- centers_df %>%
                   `traduccion` = 11)) %>%
   arrange(Center, Variable)
 
-ggplot(centers_to_plot, aes(x = Variable, y = Value, group=Center,color= Center)) +
+ggplot(centers_to_plot, aes(x = as.factor(Variable), y = Value, group=Center,color= Center)) +
   geom_line() +
   geom_point() +
-  labs(title = "Centroides de los clusters de intensidad", x = "Índice de la variable", y = "Valor del centroide") +
-  theme_minimal()
+  labs(title = "Centroides de los clusters de intensidad", y = "Valor del centroide") +
+  scale_x_discrete(name="Aplicación", labels = c("1" ="Administrativas", "2"="Burocracia",
+                              "3"="Calendario", "4"="Comunicación prof.",
+                                                        "5"="Feedback", "6"="Generar material",
+                              "7"="Preguntas del temario",
+                                                        "8"="Preparar examen", "9"="Profesor particular", "10"="Resumen", "11"="Traducción")) +
+  theme_minimal()+
+  theme(axis.text.x = element_text(face="bold", color="#993333",
+                                   size=10, angle=45))
+
 ggsave("figures/centroides-clusters-intensidad.png", width = 10, height = 6)
