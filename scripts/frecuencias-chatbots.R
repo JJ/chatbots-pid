@@ -3,11 +3,9 @@ library(dplyr)
 
 frecuencias_data <- read.csv("data/chatbots.csv", header = TRUE, na.strings="", sep = ";")
 
-columnas <- strsplit("ChatGPT;Claude;Copilot;DeepSeek;Disciplina;Gemini;NotebookLM;Perplexity", ";")
+columnas <- strsplit("ChatGPT;Claude;Copilot;DeepSeek;Gemini;NotebookLM;Perplexity", ";")
 
 for ( i in columnas[[1]] ) {
-  # Change _ in i to .
-  i <- gsub("-", ".", i)
   frecuencias_uso_data  <-  data.frame(Disciplina = frecuencias_data$Disciplina,
                                        frecuencias_data[i])
 
@@ -37,3 +35,24 @@ for ( i in columnas[[1]] ) {
   }
 }
 
+frecuencias_data$ChatGPT %>%
+  table() %>%
+  as.data.frame() %>%
+  mutate(Proporción = Freq / sum(Freq)) -> ChatGPT_data
+colnames(ChatGPT_data) <- c("Pregunta","Número","Proporción")
+
+ChatGPT_data$Pregunta <- factor(ChatGPT_data$Pregunta,
+                              levels = c("No lo conozco",
+                                         "Lo conozco, pero no lo he usado",
+                                         "Lo uso en el contexto universitario",
+                                         "Lo uso tanto en el conexto universitario como para otras tareas",
+                                         "Lo uso para otras tareas" )
+                              )
+# add Proporción number to bar
+ggplot(ChatGPT_data, aes(x=Pregunta, y=Proporción)) +
+  geom_bar(stat="identity", fill="#0073C2FF") +
+  geom_text(aes(label=sprintf("%.2f", Proporción)), size=5) +
+  labs(title="Frecuencia de uso de ChatGPT", x="Frecuencia", y="Proporción") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+ggsave("figures/frecuencias-uso-chatgpt.png", width = 10, height = 6)
