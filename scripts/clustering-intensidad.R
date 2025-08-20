@@ -5,7 +5,6 @@ library(factoextra)
 
 # Lleva a cabo un clustering de las respuestas a las preguntas sobre aplicaciones
 
-
 frecuencias_data <- read.csv("data/frecuencias-uso.csv", header = TRUE, na.strings="", sep = ";")
 frecuencias_data$mejorar.calidad <- NULL # Since we don't have data for some
 
@@ -15,6 +14,8 @@ intensidad_vectores <- frecuencias_data %>%
 
 intensidad_vectores <- intensidad_vectores %>%
   select(-Disciplina)
+
+# cor(intensidad_vectores) no da ninguna correlación demasiado alta
 
 fviz_nbclust(intensidad_vectores, kmeans, method = "wss")
 ggsave("figures/nb-clusters-intensidad.png", width = 10, height = 6)
