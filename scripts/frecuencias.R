@@ -7,7 +7,6 @@ porcentajes_data <-  frecuencias_data %>% group_by(Disciplina,Frecuencia) %>%
   summarise(Número = n()) %>%
   mutate(Proporción = Número / sum(Número))
 
-# reorder the levels of 'Frecuencia' for better visualization first none, then Nunca, then Casi nunca, then A veces, then Casi Siempre, then Siempre
 porcentajes_data$Frecuencia <- factor(porcentajes_data$Frecuencia,
                                       levels = c("", "Nunca", "Casi nunca", "A veces", "Casi siempre", "Siempre"))
 
