@@ -3,6 +3,9 @@ library(dplyr)
 library(tidyverse)
 library(factoextra)
 
+# Lleva a cabo un clustering de las respuestas a las preguntas sobre aplicaciones
+
+
 frecuencias_data <- read.csv("data/frecuencias-uso.csv", header = TRUE, na.strings="", sep = ";")
 frecuencias_data$mejorar.calidad <- NULL # Since we don't have data for some
 

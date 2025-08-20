@@ -2,6 +2,8 @@ library(ggplot2)
 library(dplyr)
 library(tidyverse)
 
+# Relaciona las respuestas a las diferentes preguntas sobre aplicaciones con la disciplina
+
 frecuencias_data <- read.csv("data/frecuencias-uso.csv", header = TRUE, na.strings="", sep = ";")
 frecuencias_data_intensidad <- read.csv("data/frecuencias.csv", header = TRUE, sep = ";")
 columnas <- strsplit("administrativas;burocracia;calendario;comunicacion-profesorado;feedback;generar-material;mejorar-calidad;preguntas-temario;preparar-examen;profesor-particular;resumen;traduccion", ";")
