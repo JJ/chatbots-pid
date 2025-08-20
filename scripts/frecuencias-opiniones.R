@@ -1,6 +1,8 @@
 library(ggplot2)
 library(dplyr)
 
+# Analiza los datos relativos a las actitudes y opiniones
+
 frecuencias_data <- read.csv("data/actitudes.csv", header = TRUE, na.strings="", sep = ";")
 
 columnas <- strsplit("ayudan;dependencia-tecnológica;explicaciones-claras;información-segura;manejan-datos;mejorar-habilidades;no-pensamiento-crítico;no-respetan-privacidad;parte-integral;respuestas-confiables;ético", ";")
