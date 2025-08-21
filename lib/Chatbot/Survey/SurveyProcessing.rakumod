@@ -10,10 +10,10 @@ sub translate-disciplina($disciplina) is export {
             return "TIC";
         }
         when /Traducción|Filología/ {
-            return "Lengua";
+            return "FFL";
         }
         default {
-            return "Otro";
+            return "Otras";
         }
     }
 }
