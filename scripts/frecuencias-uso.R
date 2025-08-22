@@ -17,6 +17,11 @@ for ( i in columnas[[1]] ) {
 
   porcentajes_data$Frecuencia <- factor(porcentajes_data[[i]],
                                       levels = c("No me parece útil", "Me gustaría hacerlo", "Lo he hecho"))
+  porcentajes_data$Disciplina <- factor(porcentajes_data$Disciplina,
+                                        levels = c("FFL",
+                                                   "TIC",
+                                                   "Otras")
+  )
 
   ggplot(porcentajes_data, aes(x=Frecuencia, fill=Disciplina, y = Proporción)) +
     geom_bar( stat="identity", position="dodge") +

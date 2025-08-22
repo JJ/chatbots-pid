@@ -20,6 +20,12 @@ for ( i in columnas[[1]] ) {
   summarise(Número = n()) %>%
   mutate(Proporción = Número / sum(Número))
 
+  porcentajes_data$Disciplina <- factor(porcentajes_data$Disciplina,
+                                        levels = c("FFL",
+                                                   "TIC",
+                                                   "Otras")
+  )
+
   porcentajes_data$Frecuencia <- factor(porcentajes_data$Frecuencia,
                                         levels = c( "Nunca", "Casi nunca", "A veces", "Casi siempre", "Siempre"))
 
