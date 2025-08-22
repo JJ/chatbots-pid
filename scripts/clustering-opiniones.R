@@ -54,6 +54,12 @@ frecuencias_data %>% group_by( Cluster, Disciplina ) %>%
   summarise(Número = n()) %>%
   mutate(Proporción = Número / sum(Número)) -> porcentaje_disciplina_por_cluster
 
+porcentaje_disciplina_por_cluster$Disciplina <- factor(porcentaje_disciplina_por_cluster$Disciplina,
+                                                levels = c("FFL",
+                                                  "TIC",
+                                                  "Otras")
+)
+
 ggplot(porcentaje_disciplina_por_cluster, aes(x=Cluster, fill=Disciplina, y = Proporción)) +
   geom_bar( stat="identity", position="stack") +
   labs(title="Proporción de disciplinas por cluster de intensidad", x="Cluster", y="Proporción") +
@@ -76,6 +82,11 @@ frecuencias_data %>% group_by( Cluster, Disciplina ) %>%
   summarise(Número = n()) %>%
   mutate(Cantidad = Número ) -> cantidad_cluster_por_disciplina
 
+cantidad_cluster_por_disciplina$Disciplina <- factor(cantidad_cluster_por_disciplina$Disciplina,
+                                      levels = c("FFL",
+                                                 "TIC",
+                                                 "Otras")
+)
 ggplot(cantidad_cluster_por_disciplina, aes(x=Cluster, fill=Disciplina, y = Cantidad)) +
   geom_bar( stat="identity", position="stack") +
   labs(title="Cantidad en cada cluster por disciplina", x="Cluster", y="Cantidad") +
