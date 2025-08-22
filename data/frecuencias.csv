@@ -1,8 +1,8 @@
 Disciplina;Frecuencia;Piloto
-Otro;"A veces";False
+Otras;"A veces";False
 TIC;"A veces";False
 TIC;"Casi siempre";False
-Otro;"Casi siempre";False
+Otras;"Casi siempre";False
 TIC;"Casi siempre";False
 TIC;"Casi siempre";False
 TIC;"Casi siempre";False
@@ -15,166 +15,166 @@ TIC;Siempre;False
 TIC;Siempre;False
 TIC;Siempre;False
 TIC;"Casi siempre";False
-Otro;"A veces";False
+Otras;"A veces";False
 TIC;Nunca;False
 TIC;"Casi siempre";False
-Otro;Siempre;False
+Otras;Siempre;False
 TIC;"Casi siempre";False
 TIC;"Casi siempre";False
-Otro;"Casi siempre";False
+Otras;"Casi siempre";False
 TIC;"A veces";False
-Otro;"A veces";False
+Otras;"A veces";False
 TIC;"A veces";False
 TIC;"Casi nunca";False
-Otro;Siempre;False
+Otras;Siempre;False
 TIC;"Casi siempre";False
 TIC;"Casi siempre";False
-TIC;"Casi nunca";False
-TIC;"Casi siempre";False
-TIC;"Casi siempre";False
-Otro;"A veces";False
-TIC;"A veces";False
-Otro;"A veces";False
 TIC;"Casi nunca";False
 TIC;"Casi siempre";False
 TIC;"Casi siempre";False
-TIC;"Casi siempre";False
+Otras;"A veces";False
 TIC;"A veces";False
-TIC;"Casi siempre";False
-TIC;"A veces";False
-TIC;"Casi siempre";False
-TIC;"Casi siempre";False
-Otro;"A veces";False
-TIC;Siempre;False
-Otro;"A veces";False
-TIC;"Casi siempre";False
-TIC;"Casi siempre";False
-Lengua;"A veces";False
-Lengua;"Casi siempre";False
-TIC;"A veces";False
-TIC;"Casi siempre";False
-TIC;"Casi siempre";False
-TIC;"Casi siempre";False
-Lengua;"Casi siempre";False
-TIC;Siempre;False
-TIC;"Casi siempre";False
-TIC;"Casi siempre";False
-Otro;"A veces";False
-Otro;Nunca;False
-Otro;"A veces";False
-Lengua;Nunca;False
-TIC;"Casi siempre";False
-Otro;"A veces";False
-TIC;"Casi siempre";False
-Otro;Nunca;False
-Otro;"Casi siempre";False
-Otro;"A veces";False
-TIC;"A veces";False
-Otro;"Casi siempre";False
-Otro;"A veces";False
-TIC;Siempre;False
-Otro;"Casi siempre";False
-Otro;"Casi siempre";False
-Lengua;"A veces";False
-Otro;"A veces";False
-Otro;"A veces";False
-Otro;"A veces";False
-TIC;"Casi siempre";False
-Otro;"Casi nunca";False
-Lengua;Siempre;False
-Otro;Nunca;False
-Otro;"Casi nunca";False
-Otro;"A veces";False
-Otro;"A veces";False
-Lengua;"Casi nunca";False
-Otro;"A veces";False
-TIC;"Casi nunca";False
-Otro;"Casi nunca";False
-TIC;Siempre;False
-TIC;"A veces";False
-TIC;"Casi siempre";False
-Otro;Siempre;False
-TIC;"Casi siempre";False
-Otro;Siempre;False
-Lengua;"Casi nunca";False
-Otro;"Casi siempre";False
-Lengua;"A veces";False
-Lengua;"Casi nunca";False
-Otro;"Casi siempre";False
-Otro;"A veces";False
-TIC;"Casi siempre";False
-Otro;"A veces";False
-Otro;Nunca;False
-Otro;"Casi siempre";False
-Otro;"Casi siempre";False
-Otro;"Casi nunca";False
-Otro;"A veces";False
-TIC;"Casi siempre";False
-TIC;Siempre;False
-Otro;"Casi siempre";False
-Lengua;"Casi nunca";False
-Lengua;"Casi siempre";False
-Lengua;"Casi nunca";False
-Lengua;"A veces";False
-Lengua;"Casi siempre";False
-Lengua;"A veces";False
-Lengua;"A veces";False
-Lengua;"Casi nunca";False
-Lengua;"Casi nunca";False
-Lengua;"Casi siempre";False
-Lengua;"Casi nunca";False
-Lengua;"A veces";False
-Lengua;"A veces";False
-Lengua;"Casi nunca";False
-Lengua;"A veces";False
-Lengua;"A veces";False
-Lengua;"A veces";False
-Lengua;"A veces";False
-Lengua;"A veces";False
-Lengua;"A veces";False
-Lengua;"Casi siempre";False
-Lengua;"A veces";False
-Otro;"A veces";False
-Otro;"Casi siempre";False
-Lengua;"A veces";False
-Lengua;"Casi nunca";False
-Otro;Nunca;False
-TIC;"A veces";False
-TIC;"Casi siempre";False
-TIC;"Casi siempre";False
-TIC;Siempre;False
-TIC;"Casi siempre";False
-Otro;"A veces";False
+Otras;"A veces";False
 TIC;"Casi nunca";False
 TIC;"Casi siempre";False
-Otro;"A veces";False
-Otro;"Casi siempre";False
+TIC;"Casi siempre";False
+TIC;"Casi siempre";False
+TIC;"A veces";False
+TIC;"Casi siempre";False
+TIC;"A veces";False
+TIC;"Casi siempre";False
+TIC;"Casi siempre";False
+Otras;"A veces";False
 TIC;Siempre;False
-Otro;"A veces";False
-Otro;"Casi nunca";False
-Otro;"Casi siempre";False
-Otro;"Casi nunca";False
-Otro;"Casi nunca";False
-Otro;Nunca;True
+Otras;"A veces";False
+TIC;"Casi siempre";False
+TIC;"Casi siempre";False
+FFL;"A veces";False
+FFL;"Casi siempre";False
+TIC;"A veces";False
+TIC;"Casi siempre";False
+TIC;"Casi siempre";False
+TIC;"Casi siempre";False
+FFL;"Casi siempre";False
+TIC;Siempre;False
+TIC;"Casi siempre";False
+TIC;"Casi siempre";False
+Otras;"A veces";False
+Otras;Nunca;False
+Otras;"A veces";False
+FFL;Nunca;False
+TIC;"Casi siempre";False
+Otras;"A veces";False
+TIC;"Casi siempre";False
+Otras;Nunca;False
+Otras;"Casi siempre";False
+Otras;"A veces";False
+TIC;"A veces";False
+Otras;"Casi siempre";False
+Otras;"A veces";False
+TIC;Siempre;False
+Otras;"Casi siempre";False
+Otras;"Casi siempre";False
+FFL;"A veces";False
+Otras;"A veces";False
+Otras;"A veces";False
+Otras;"A veces";False
+TIC;"Casi siempre";False
+Otras;"Casi nunca";False
+FFL;Siempre;False
+Otras;Nunca;False
+Otras;"Casi nunca";False
+Otras;"A veces";False
+Otras;"A veces";False
+FFL;"Casi nunca";False
+Otras;"A veces";False
+TIC;"Casi nunca";False
+Otras;"Casi nunca";False
+TIC;Siempre;False
+TIC;"A veces";False
+TIC;"Casi siempre";False
+Otras;Siempre;False
+TIC;"Casi siempre";False
+Otras;Siempre;False
+FFL;"Casi nunca";False
+Otras;"Casi siempre";False
+FFL;"A veces";False
+FFL;"Casi nunca";False
+Otras;"Casi siempre";False
+Otras;"A veces";False
+TIC;"Casi siempre";False
+Otras;"A veces";False
+Otras;Nunca;False
+Otras;"Casi siempre";False
+Otras;"Casi siempre";False
+Otras;"Casi nunca";False
+Otras;"A veces";False
+TIC;"Casi siempre";False
+TIC;Siempre;False
+Otras;"Casi siempre";False
+FFL;"Casi nunca";False
+FFL;"Casi siempre";False
+FFL;"Casi nunca";False
+FFL;"A veces";False
+FFL;"Casi siempre";False
+FFL;"A veces";False
+FFL;"A veces";False
+FFL;"Casi nunca";False
+FFL;"Casi nunca";False
+FFL;"Casi siempre";False
+FFL;"Casi nunca";False
+FFL;"A veces";False
+FFL;"A veces";False
+FFL;"Casi nunca";False
+FFL;"A veces";False
+FFL;"A veces";False
+FFL;"A veces";False
+FFL;"A veces";False
+FFL;"A veces";False
+FFL;"A veces";False
+FFL;"Casi siempre";False
+FFL;"A veces";False
+Otras;"A veces";False
+Otras;"Casi siempre";False
+FFL;"A veces";False
+FFL;"Casi nunca";False
+Otras;Nunca;False
+TIC;"A veces";False
+TIC;"Casi siempre";False
+TIC;"Casi siempre";False
+TIC;Siempre;False
+TIC;"Casi siempre";False
+Otras;"A veces";False
+TIC;"Casi nunca";False
+TIC;"Casi siempre";False
+Otras;"A veces";False
+Otras;"Casi siempre";False
+TIC;Siempre;False
+Otras;"A veces";False
+Otras;"Casi nunca";False
+Otras;"Casi siempre";False
+Otras;"Casi nunca";False
+Otras;"Casi nunca";False
+Otras;Nunca;True
 TIC;"A veces";True
-Otro;Siempre;True
-Lengua;Nunca;True
-Otro;"A veces";True
-Lengua;"A veces";True
-Lengua;"A veces";True
-Lengua;Nunca;True
-Lengua;"A veces";True
-Lengua;"Casi nunca";True
-Lengua;"A veces";True
-Lengua;"A veces";True
-Lengua;"Casi nunca";True
-Otro;"A veces";True
-Lengua;"Casi siempre";True
+Otras;Siempre;True
+FFL;Nunca;True
+Otras;"A veces";True
+FFL;"A veces";True
+FFL;"A veces";True
+FFL;Nunca;True
+FFL;"A veces";True
+FFL;"Casi nunca";True
+FFL;"A veces";True
+FFL;"A veces";True
+FFL;"Casi nunca";True
+Otras;"A veces";True
+FFL;"Casi siempre";True
 TIC;"A veces";True
 TIC;"Casi siempre";True
-Otro;"Casi siempre";True
-Otro;"A veces";True
-Lengua;"A veces";True
+Otras;"Casi siempre";True
+Otras;"A veces";True
+FFL;"A veces";True
 TIC;"A veces";True
 TIC;"Casi siempre";True
 TIC;"A veces";True
@@ -185,17 +185,17 @@ TIC;"A veces";True
 TIC;"Casi nunca";True
 TIC;"A veces";True
 TIC;Siempre;True
-Otro;"A veces";True
+Otras;"A veces";True
 TIC;"A veces";True
 TIC;Siempre;True
 TIC;"A veces";True
 TIC;"Casi siempre";True
 TIC;"A veces";True
-Otro;"Casi nunca";True
-Otro;"A veces";True
+Otras;"Casi nunca";True
+Otras;"A veces";True
 TIC;"A veces";True
-Lengua;"A veces";True
-Otro;"A veces";True
+FFL;"A veces";True
+Otras;"A veces";True
 TIC;"Casi siempre";True
 TIC;"A veces";True
 TIC;Siempre;True
@@ -204,18 +204,18 @@ TIC;"Casi siempre";True
 TIC;"A veces";True
 TIC;Siempre;True
 TIC;"A veces";True
-Lengua;"A veces";True
-Lengua;"A veces";True
-Lengua;"A veces";True
-Lengua;"A veces";True
-Lengua;"Casi nunca";True
-Lengua;"A veces";True
-Lengua;"A veces";True
-Lengua;Siempre;True
-Lengua;"A veces";True
+FFL;"A veces";True
+FFL;"A veces";True
+FFL;"A veces";True
+FFL;"A veces";True
+FFL;"Casi nunca";True
+FFL;"A veces";True
+FFL;"A veces";True
+FFL;Siempre;True
+FFL;"A veces";True
 TIC;"A veces";True
-Otro;"A veces";True
-Lengua;"Casi siempre";True
+Otras;"A veces";True
+FFL;"Casi siempre";True
 TIC;"Casi siempre";True
 TIC;"Casi nunca";True
 TIC;"Casi siempre";True
