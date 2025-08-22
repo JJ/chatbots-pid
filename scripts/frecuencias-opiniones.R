@@ -20,6 +20,12 @@ for ( i in columnas[[1]] ) {
   porcentajes_data$Frecuencia <- factor(porcentajes_data[[i]],
                                       levels = c("Estoy en desacuerdo", "Más bien en desacuerdo","Ni estoy de acuerdo ni en desacuerdo", "Más bien de acuerdo", "Completamente de acuerdo" ))
 
+  porcentajes_data$Disciplina <- factor(porcentajes_data$Disciplina,
+                                        levels = c("FFL",
+                                                   "TIC",
+                                                   "Otras")
+  )
+
   ggplot(porcentajes_data, aes(x=Frecuencia, fill=Disciplina, y = Proporción)) +
     geom_bar( stat="identity", position="dodge") +
     labs(title=paste0("Actitud sobre ",i), x="Frecuencia", y="Proporción") +

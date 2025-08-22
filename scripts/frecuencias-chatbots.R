@@ -20,7 +20,11 @@ for ( i in columnas[[1]] ) {
                                                  "Lo uso tanto en el conexto universitario como para otras tareas",
                                                  "Lo uso para otras tareas" )
                                       )
-
+  porcentajes_data$Disciplina <- factor(porcentajes_data$Disciplina,
+                                        levels = c("FFL",
+                                                   "TIC",
+                                                   "Otras")
+                                        )
   ggplot(porcentajes_data, aes(x=Frecuencia, fill=Disciplina, y = Proporción)) +
     geom_bar( stat="identity", position="dodge") +
     labs(title=paste0("Actitud sobre ",i), x="Frecuencia", y="Proporción") +
