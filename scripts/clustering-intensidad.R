@@ -8,14 +8,11 @@ library(factoextra)
 frecuencias_data <- read.csv("data/frecuencias-uso.csv", header = TRUE, na.strings="", sep = ";")
 frecuencias_data$mejorar.calidad <- NULL # Since we don't have data for some
 
-
 intensidad_vectores <- frecuencias_data %>%
   mutate(across(-Disciplina, ~ recode(.x, `No me parece útil` = 0, `Me gustaría hacerlo` = 1, `Lo he hecho` = 2)))
 
 intensidad_vectores <- intensidad_vectores %>%
   select(-Disciplina)
-
-# cor(intensidad_vectores) no da ninguna correlación demasiado alta
 
 fviz_nbclust(intensidad_vectores, kmeans, method = "wss")
 ggsave("figures/nb-clusters-intensidad.png", width = 10, height = 6)
@@ -85,6 +82,11 @@ frecuencias_data %>% group_by( Cluster, Disciplina ) %>%
   summarise(Número = n()) %>%
   mutate(Cantidad = Número ) -> cantidad_cluster_por_disciplina
 
+cantidad_cluster_por_disciplina$Disciplina <- factor(cantidad_cluster_por_disciplina$Disciplina,
+                                      levels = c("FFL",
+                                                 "TIC",
+                                                 "Otras")
+)
 ggplot(cantidad_cluster_por_disciplina, aes(x=Cluster, fill=Disciplina, y = Cantidad)) +
   geom_bar( stat="identity", position="stack") +
   labs(title="Cantidad en cada cluster por disciplina", x="Cluster", y="Cantidad") +
