@@ -6,9 +6,13 @@ frecuencias_data <- read.csv("data/frecuencias.csv", header = TRUE, sep = ";")
 porcentajes_data <-  frecuencias_data %>% group_by(Disciplina,Frecuencia) %>%
   summarise(Número = n()) %>%
   mutate(Proporción = Número / sum(Número))
-
+porcentajes_data$Disciplina <- factor(porcentajes_data$Disciplina,
+                                      levels = c("FFL",
+                                                 "TIC",
+                                                 "Otras")
+                                      )
 porcentajes_data$Frecuencia <- factor(porcentajes_data$Frecuencia,
-                                      levels = c("", "Nunca", "Casi nunca", "A veces", "Casi siempre", "Siempre"))
+                                      levels = c("Nunca", "Casi nunca", "A veces", "Casi siempre", "Siempre"))
 
 ggplot(porcentajes_data, aes(x=Frecuencia, fill=Disciplina, y = Proporción)) +
   geom_bar( stat="identity", position="dodge") +
