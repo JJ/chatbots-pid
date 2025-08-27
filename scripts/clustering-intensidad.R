@@ -43,7 +43,7 @@ ggplot(centers_to_plot, aes(x = as.factor(Variable), y = Value, group=Center,col
   geom_line() +
   geom_point() +
   labs(title = "Centroides de los clusters de intensidad", y = "Valor del centroide") +
-  scale_x_discrete(name="Aplicación", labels = c("1" ="Administrativas", "2"="Burocracia",
+  scale_x_discrete(name="Aplicación", labels = c("1" ="Admin. asignatura", "2"="Burocracia",
                               "3"="Calendario", "4"="Comunicación prof.",
                                                         "5"="Feedback", "6"="Generar material",
                               "7"="Preguntas del temario",
