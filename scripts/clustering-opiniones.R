@@ -33,13 +33,13 @@ ggplot(centers_to_plot, aes(x = as.factor(Variable), y = Value, group=Center,col
                    labels = c("1"="Ayudan",
                               "2"="Dependencia tecnológica",
                               "3"= "Explicaciones claras",
-                              "4"="Información segura",
-                              "5"= "manejan.datos",
-                              "6"="mejorar habilidades",
+                              "4"="Información sesgada",
+                              "5"= "Datos sensibles",
+                              "6"="Mejorar habilidades",
                               "7"="No pensamiento crítico",
                               "8"="No respetan privacidad",
                               "9"="Parte integral",
-                              "10"="respuestas.confiables",
+                              "10"="Respuestas confiables",
                               "11"="Ético")
                    ) +
   theme_minimal()+
