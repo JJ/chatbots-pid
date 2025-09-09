@@ -26,28 +26,28 @@ centers_to_plot <- centers_df %>%
   mutate(Center = row_number()) %>%
   pivot_longer(-Center, names_to = "Variable", values_to = "Value") %>%
   mutate(across(Variable, recode,
-                  `administrativas` = 1,
-                  `burocracia` = 2,
-                  `calendario` = 3,
-                  `comunicacion.profesorado` = 4,
-                  `feedback` = 5,
-                  `generar.material` = 6,
-                  `preguntas.temario` = 7,
-                  `preparar.examen` = 8,
-                  `profesor.particular` = 9,
-                  `resumen` = 10,
-                  `traduccion` = 11)) %>%
+                  `administrativas` = 8,
+                  `burocracia` = 9,
+                  `calendario` = 10,
+                  `comunicacion.profesorado` = 11,
+                  `feedback` = 4,
+                  `generar.material` = 5,
+                  `preguntas.temario` = 1,
+                  `preparar.examen` = 2,
+                  `profesor.particular` = 3,
+                  `resumen` = 6,
+                  `traduccion` = 7)) %>%
   arrange(Center, Variable)
 
 ggplot(centers_to_plot, aes(x = as.factor(Variable), y = Value, group=Center,color= as.factor(Center))) +
   geom_line() +
   geom_point() +
   labs(title = "Centroides de los clusters de intensidad", y = "Valor del centroide") +
-  scale_x_discrete(name="Aplicación", labels = c("1" ="Admin. asignatura", "2"="Burocracia",
-                              "3"="Calendario", "4"="Comunicación prof.",
-                                                        "5"="Feedback", "6"="Generar material",
-                              "7"="Preguntas del temario",
-                                                        "8"="Preparar examen", "9"="Profesor particular", "10"="Resumen", "11"="Traducción")) +
+  scale_x_discrete(name="Aplicación", labels = c("8" ="Admin. asignatura", "9"="Burocracia",
+                              "10"="Calendario", "11"="Comunicación prof.",
+                                                        "4"="Feedback", "5"="Generar material",
+                              "1"="Preguntas del temario",
+                                                        "2"="Preparar examen", "3"="Profesor particular", "6"="Resumen", "7"="Traducción")) +
   theme_minimal()+
   theme(axis.text.x = element_text(face="bold", color="#993333",
                                    size=10, angle=45))
