@@ -4,7 +4,6 @@ library(tidyverse)
 library(factoextra)
 
 # Lleva a cabo un clustering de las respuestas a las preguntas sobre opiniones
-
 frecuencias_data <- read.csv("data/actitudes.csv", header = TRUE, na.strings="", sep = ";")
 
 opiniones_vectores <- frecuencias_data %>%
@@ -22,7 +21,7 @@ centers_to_plot <- centers_df %>%
   mutate(Center = row_number()) %>%
   pivot_longer(-Center, names_to = "Variable", values_to = "Value") %>%
   mutate(across(Variable, recode,
-                "ayudan" = 1, "dependencia.tecnológica" = 2, "explicaciones.claras" = 3, "información.segura" = 4, "manejan.datos" = 5, "mejorar.habilidades"=6,"no.pensamiento.crítico"=7,"no.respetan.privacidad"=8,"parte.integral"=9,"respuestas.confiables"=10,"ético"=11)) %>%
+                "ayudan" = 1, "dependencia.tecnológica" = 8, "explicaciones.claras" = 3, "información.segura" = 11, "manejan.datos" = 5, "mejorar.habilidades"=2,"no.pensamiento.crítico"=9,"no.respetan.privacidad"=10,"parte.integral"=7,"respuestas.confiables"=4,"ético"=6)) %>%
   arrange(Center, Variable)
 
 ggplot(centers_to_plot, aes(x = as.factor(Variable), y = Value, group=Center,color= as.factor(Center))) +
@@ -31,16 +30,16 @@ ggplot(centers_to_plot, aes(x = as.factor(Variable), y = Value, group=Center,col
   labs(title = "Centroides de los clusters de opiniones", y = "Valor del centroide") +
   scale_x_discrete(name="Aplicación",
                    labels = c("1"="Ayudan",
-                              "2"="Dependencia tecnológica",
+                              "8"="Dependencia tecnológica",
                               "3"= "Explicaciones claras",
-                              "4"="Información sesgada",
+                              "11"="Información sesgada",
                               "5"= "Datos sensibles",
-                              "6"="Mejorar habilidades",
-                              "7"="No pensamiento crítico",
-                              "8"="No respetan privacidad",
-                              "9"="Parte integral",
-                              "10"="Respuestas confiables",
-                              "11"="Ético")
+                              "2"="Mejorar habilidades",
+                              "9"="No pensamiento crítico",
+                              "10"="No respetan privacidad",
+                              "7"="Parte integral",
+                              "4"="Respuestas confiables",
+                              "6"="Ético")
                    ) +
   theme_minimal()+
   theme(axis.text.x = element_text(face="bold", color="#993333",
