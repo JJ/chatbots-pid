@@ -6,7 +6,7 @@ use Chatbot::Survey::SurveyProcessing;
 
 my $input-file = 'data-raw/encuesta.csv';
 my $input-file-piloto = 'data-raw/estudiantes-piloto.csv';
-my $output-file = 'data/actitudes.csv';
+my $output-file = 'data/actitudes-género.csv';
 my @data = csv( in=> $input-file, :encoding<utf8>, sep=> ";", headers => "auto");
 my @data-piloto = csv( in=> $input-file-piloto, :encoding<utf8>, sep=> ";", headers => "auto");
 
@@ -23,7 +23,8 @@ my %columns-of-interest = (
     "Lea y valore las siguientes afirmaciones sobre chatbots. [Los chatbots proporcionan información sesgada.]"=>"información-segura",
     "Lea y valore las siguientes afirmaciones sobre chatbots. [El uso de chatbots conduce a la dependencia tecnológica.]"=>"dependencia-tecnológica",
     "Lea y valore las siguientes afirmaciones sobre chatbots. [Los chatbots no respetan la privacidad de los usuarios.]"=>"no-respetan-privacidad",
-    "Lea y valore las siguientes afirmaciones sobre chatbots. [El uso de chatbots conduce a una falta de pensamiento crítico.]"=>"no-pensamiento-crítico"
+    "Lea y valore las siguientes afirmaciones sobre chatbots. [El uso de chatbots conduce a una falta de pensamiento crítico.]"=>"no-pensamiento-crítico",
+    "¿Con qué género se identifica?" => "Género"
     );
 
 
@@ -39,7 +40,8 @@ my %columns-of-interest-piloto = (
     "Lea y valore las siguientes afirmaciones sobre chatbots. [Los chatbots tienen un problema de privacidad.]"=>"problema-privacidad",
     "Lea y valore las siguientes afirmaciones sobre chatbots. [El uso de chatbots conduce a la dependencia tecnológica.]"=>"dependencia-tecnológica",
     "Lea y valore las siguientes afirmaciones sobre chatbots. [Los chatbots no respetan la privacidad de los usuarios.]"=>"no-respetan-privacidad",
-    "Lea y valore las siguientes afirmaciones sobre chatbots. [El uso de chatbots conduce a una falta de pensamiento crítico.]"=>"no-pensamiento-crítico"
+    "Lea y valore las siguientes afirmaciones sobre chatbots. [El uso de chatbots conduce a una falta de pensamiento crítico.]"=>"no-pensamiento-crítico",
+    "¿Con qué género se identifica?" => "Género"
     );
 
 for @data -> %row {
