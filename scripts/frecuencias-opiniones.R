@@ -40,3 +40,37 @@ for ( i in columnas[[1]] ) {
   }
 }
 
+frecuencias_data <- read.csv("data/actitudes-género.csv", header = TRUE, na.strings="", sep = ";")
+
+for ( i in columnas[[1]] ) {
+  # Change _ in i to .
+  i <- gsub("-", ".", i)
+  frecuencias_uso_data  <-  data.frame(Genero = frecuencias_data$Género,
+                                       frecuencias_data[i])
+
+  porcentajes_data <-  frecuencias_uso_data %>% group_by(Genero,.data[[i]]) %>%
+    summarise(Número = n()) %>%
+    mutate(Proporción = Número / sum(Número))
+
+  porcentajes_data$Frecuencia <- factor(porcentajes_data[[i]],
+                                        levels = c("Estoy en desacuerdo", "Más bien en desacuerdo","Ni estoy de acuerdo ni en desacuerdo", "Más bien de acuerdo", "Completamente de acuerdo" ))
+
+  porcentajes_data$Genero <- factor(porcentajes_data$Genero,
+                                        levels = c("Masculino",
+                                                   "Femenino",
+                                                   "Prefiero no decirlo")
+  )
+
+  ggplot(porcentajes_data, aes(x=Frecuencia, fill=Genero, y = Proporción)) +
+    geom_bar( stat="identity", position="dodge") +
+    labs(title=paste0("Actitud sobre ",i), x="Frecuencia", y="Proporción") +
+    theme_minimal() +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1))
+  ggsave(paste0("figures/actitudes-género-",i, ".png"), width = 10, height = 6)
+
+  frecuencia_tabla <- table( unname(unlist(frecuencias_data[i])), frecuencias_data$Género)
+  chisq_frecuencia <- chisq.test(frecuencia_tabla)
+  if ( chisq_frecuencia$p.value < 0.05 ) {
+    cat("✅ La prueba de chi-cuadrado indica que hay una diferencia significativa en la actitud 📈", i, "📈 con p-value ", chisq_frecuencia$p.value,"\n")
+  }
+}
