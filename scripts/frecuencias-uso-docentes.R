@@ -6,6 +6,10 @@ frecuencias_data <- read.csv("data/frecuencias-uso-docentes.csv", header = TRUE,
 
 columnas <- strsplit("administrativas;burocracia;calendario;comunicacion-profesorado;feedback;generar-material;preguntas-temario;preparar-examen;profesor-particular;resumen;traduccion", ";")
 
+resultados_uso <- data.frame( uso=character(),
+                              frecuencia=character(),
+                              porcentaje = numeric() );
+
 for ( i in columnas[[1]] ) {
   i <- gsub("-", ".", i)
   frecuencias_uso_data  <-  data.frame(Disciplina = frecuencias_data$Disciplina,
@@ -20,14 +24,16 @@ for ( i in columnas[[1]] ) {
   porcentajes_data$Disciplina <- factor(porcentajes_data$Disciplina,
                                         levels = c("TIC",
                                                    "Otras")
-  )
+                                       )
 
-  ggplot(porcentajes_data, aes(x=Frecuencia, fill=Disciplina, y = Proporción)) +
-    geom_bar( stat="identity", position="dodge") +
-    labs(title=paste0("Frecuencia de uso ",i), x="Frecuencia", y="Proporción") +
-    theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
-  ggsave(paste0("figures/frecuencias-uso-docentes",i, ".png"), width = 10, height = 6)
+  for (j in levels(porcentajes_data$Frecuencia) ) {
+    resultados_uso <- rbind( resultados_uso,
+                             data.frame( uso = i,
+                                         frecuencia = j,
+                                         porcentaje = sum( porcentajes_data$Proporción[porcentajes_data$Frecuencia == j] )
+                             )
+    )
+  }
 
   frecuencia_tabla <- table( unname(unlist(frecuencias_data[i])), frecuencias_data$Disciplina)
   chisq_frecuencia <- chisq.test(frecuencia_tabla)
@@ -37,3 +43,9 @@ for ( i in columnas[[1]] ) {
   }
 }
 
+ggplot(resultados_uso, aes(x=uso, fill=frecuencia, y = porcentaje)) +
+  geom_bar( stat="identity", position="dodge") +
+  labs(title="Frecuencia de uso de diferentes aplicaciones por docentes", x="Aplicación", y="Proporción") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+ggsave(paste0("figures/frecuencias-uso-docentes.png"), width = 10, height = 6)
