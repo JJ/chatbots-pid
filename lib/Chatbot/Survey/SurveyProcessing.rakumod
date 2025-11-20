@@ -18,6 +18,18 @@ sub translate-disciplina($disciplina) is export {
     }
 }
 
+#| Translate disciplina
+sub translate-disciplina-docentes($disciplina) is export {
+    given $disciplina {
+        when /Ingenierías|Computación|Informática/ {
+            return "TIC";
+        }
+        default {
+            return "Otras";
+        }
+    }
+}
+
 #| Process a survey row and return a hash with frequency and discipline information
 sub process-survey-row(%row, Bool $piloto) is export {
     my %output-row = ( "Frecuencia" => %row{"¿Con que frecuencia utiliza chatbots?"}, "Piloto" => $piloto );

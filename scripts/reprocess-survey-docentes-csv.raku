@@ -42,8 +42,7 @@ my %columns-of-interest-piloto = (
 
 for @data -> %row {
     next if %row{"¿Qué medios de comunicación usa en el contexto universitario?"} eq "";
-    my %translated = ( "Disciplina" => translate-disciplina(%row{"¿Cuál es su campo de estudio/área de trabajo?"}) );
-    say "Row ", %row;
+    my %translated = ( "Disciplina" => translate-disciplina-docentes(%row{"¿Cuál es su campo de estudio/área de trabajo?"}) );
     for %columns-of-interest.kv -> $key, $value {
         %translated{$value} = %row{$key};
     }
@@ -52,8 +51,7 @@ for @data -> %row {
 
 for @data-piloto -> %row {
     next if %row{"¿Cuál es su perfil?"} ne "Docente";
-    say "Row ", %row;
-    my %translated = ( "Disciplina" => translate-disciplina(%row{"¿Cuál es su campo de estudio/área de trabajo?"}) );
+    my %translated = ( "Disciplina" => translate-disciplina-docentes(%row{"¿Cuál es su campo de estudio/área de trabajo?"}) );
     for %columns-of-interest-piloto.kv -> $key, $value {
         %translated{$value} = %row{$key};
     }
