@@ -1,0 +1,73 @@
+---
+title: "uso-chatbots-docentes"
+author: "JJ Merelo"
+date: "`r Sys.Date()`"
+output: word_document
+---
+
+```{r setup, include=FALSE, echo=FALSE}
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+
+frecuencias_data <- read.csv("../data/frecuencias-uso-docentes.csv", header = TRUE, na.strings="", sep = ";")
+
+columnas <- strsplit("administrativas;burocracia;calendario;comunicacion-profesorado;feedback;generar-material;preguntas-temario;preparar-examen;profesor-particular;resumen;traduccion", ";")
+
+resultados_uso <- data.frame( uso=character(),
+                              frecuencia=character(),
+                              porcentaje = numeric() );
+
+for ( i in columnas[[1]] ) {
+  i <- gsub("-", ".", i)
+
+  porcentajes_data <-  frecuencias_data[i] %>% drop_na() %>% group_by(.data[[i]]) %>%
+  summarise(Número = n()) %>%
+  mutate(Proporción = Número / sum(Número))
+
+  porcentajes_data$Frecuencia <- factor(porcentajes_data[[i]],
+                                        levels = c("No me parece útil", "Me gustaría hacerlo", "Lo he hecho"))
+
+  for (j in levels(porcentajes_data$Frecuencia) ) {
+    resultados_uso <- rbind( resultados_uso,
+                             data.frame( uso = i,
+                                         frecuencia = j,
+                                         porcentaje = sum( porcentajes_data$Proporción[porcentajes_data$Frecuencia == j] )
+                             )
+    )
+  }
+
+}
+
+```
+
+## Uso de chatbots por parte de los docentes
+
+En la encuesta se preguntó a los docentes sobre el uso que hacían de chatbots para diferentes tareas relacionadas con la docencia; las preguntas son equivalentes a las respondidas por los estudiantes pero reducidas al ámbito de docencia. Hubo `r length(frecuencias_data$Disciplina)` respuestas, de las cuales `r length(frecuencias_data[ frecuencias_data$Disciplina == "TIC",]$Disciplina)` eran de docentes TIC. Un análisis chi cuadrado de las diferencias entre docentes TICs y otros no arrojó diferencias significativas, por lo que se decidió analizar en conjunto todas las respuestas.
+
+```{r grafico, echo=FALSE, message=FALSE, warning=FALSE}
+resultados_uso$uso <- factor(resultados_uso$uso,
+                             levels = resultados_uso %>%
+                               filter(frecuencia == "Lo he hecho") %>%
+                               arrange(porcentaje) %>% pull(uso)
+                             )
+ggplot(resultados_uso, aes(x=uso, fill=frecuencia, y = porcentaje)) +
+  geom_bar( stat="identity", position="dodge") +
+  labs(title="Uso de diferentes aplicaciones por docentes", x="Aplicación", y="Proporción") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+En la figura están organizados por valor creciente de la respuesta "Lo ha hecho"; se ve un uso más intenso cuando se trata de trabajar con texto, más que en temas relacionados con interacción. Lo vemos también en la siguiente tabla
+
+```{r tabla, echo=FALSE}
+library(flextable)
+resultados_uso %>%
+  pivot_wider(names_from = frecuencia, values_from = porcentaje) %>%
+  flextable() %>%
+  set_header_labels(uso = "Aplicación",
+                    `No me parece útil` = "No me parece útil",
+                    `Me gustaría hacerlo` = "Me gustaría hacerlo",
+                    `Lo he hecho` = "Lo he hecho") %>%
+  colformat_double(digits = 2)
+```
