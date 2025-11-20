@@ -43,6 +43,12 @@ for ( i in columnas[[1]] ) {
   }
 }
 
+# sort by increasing porcentaje of "Lo he hecho"
+resultados_uso$uso <- factor(resultados_uso$uso,
+                             levels = resultados_uso %>%
+                               filter(frecuencia == "Lo he hecho") %>%
+                               arrange(porcentaje) %>% pull(uso)
+                             )
 ggplot(resultados_uso, aes(x=uso, fill=frecuencia, y = porcentaje)) +
   geom_bar( stat="identity", position="dodge") +
   labs(title="Frecuencia de uso de diferentes aplicaciones por docentes", x="Aplicación", y="Proporción") +
