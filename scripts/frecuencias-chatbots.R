@@ -2,6 +2,7 @@ library(ggplot2)
 library(dplyr)
 
 frecuencias_data <- read.csv("data/chatbots-uso-docentes.csv", header = TRUE, na.strings="", sep = ";")
+frecuencias_data$Disciplina <- ifelse( frecuencias_data$Disciplina=="TIC", "TIC", "Otras")
 
 columnas <- strsplit("ChatGPT;Claude;Copilot;DeepSeek;Gemini;NotebookLM;Perplexity", ";")
 
@@ -21,8 +22,7 @@ for ( i in columnas[[1]] ) {
                                                  "Lo uso para otras tareas" )
                                       )
   porcentajes_data$Disciplina <- factor(porcentajes_data$Disciplina,
-                                        levels = c("FFL",
-                                                   "TIC",
+                                        levels = c("TIC",
                                                    "Otras")
                                         )
 
