@@ -1,7 +1,7 @@
 library(ggplot2)
 library(dplyr)
 
-frecuencias_data <- read.csv("data/chatbots.csv", header = TRUE, na.strings="", sep = ";")
+frecuencias_data <- read.csv("data/chatbots-uso-docentes.csv", header = TRUE, na.strings="", sep = ";")
 
 columnas <- strsplit("ChatGPT;Claude;Copilot;DeepSeek;Gemini;NotebookLM;Perplexity", ";")
 
@@ -25,12 +25,15 @@ for ( i in columnas[[1]] ) {
                                                    "TIC",
                                                    "Otras")
                                         )
+
+  porcentajes_data <- porcentajes_data %>%
+    filter(!is.na(Frecuencia))
   ggplot(porcentajes_data, aes(x=Frecuencia, fill=Disciplina, y = Proporción)) +
     geom_bar( stat="identity", position="dodge") +
-    labs(title=paste0("Actitud sobre ",i), x="Frecuencia", y="Proporción") +
+    labs(title=paste0("Actitud docentes sobre ",i), x="Frecuencia", y="Proporción") +
     theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
-  ggsave(paste0("figures/actitudes-",i, ".png"), width = 10, height = 6)
+  ggsave(paste0("figures/actitudes-docentes",i, ".png"), width = 10, height = 6)
 
   frecuencia_tabla <- table( unname(unlist(frecuencias_data[i])), frecuencias_data$Disciplina)
   chisq_frecuencia <- chisq.test(frecuencia_tabla)
