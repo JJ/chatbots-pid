@@ -1,7 +1,16 @@
+---
+title: "uso-tipos-chatbots-docentes"
+author: "JJ Merelo"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE, echo=FALSE}
 library(ggplot2)
 library(dplyr)
+library(tidyr)
 
-frecuencias_data <- read.csv("data/chatbots-uso-docentes.csv", header = TRUE, na.strings="", sep = ";")
+frecuencias_data <- read.csv("../data/chatbots-uso-docentes.csv", header = TRUE, na.strings="", sep = ";")
 
 columnas <- strsplit("ChatGPT;Claude;Copilot;DeepSeek;Gemini;NotebookLM;Perplexity", ";")
 resultados_uso <- data.frame( chatbot=character(),
@@ -36,6 +45,13 @@ for ( i in columnas[[1]] ) {
 
 }
 
+
+```
+
+Now the chart
+
+```{r grafico, echo=FALSE, message=FALSE, warning=FALSE}
+
 resultados_uso$chatbot <- factor(resultados_uso$chatbot,
                              levels = resultados_uso %>%
                                filter(frecuencia == "Lo uso tanto en el conexto universitario como para otras tareas") %>%
@@ -47,4 +63,24 @@ ggplot(resultados_uso, aes(x=chatbot, fill=frecuencia, y = porcentaje)) +
     theme_minimal() +
     theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
-ggsave("figures/frecuencias-uso-chatbots-docentes.png", width = 10, height = 6)
+```
+
+And now the table
+
+```{r tabla, echo=FALSE, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+library(kableExtra)
+resultados_uso %>%
+  pivot_wider(names_from = frecuencia, values_from = porcentaje) %>%
+  arrange(desc(`Lo uso tanto en el conexto universitario como para otras tareas`)) %>%
+  kable( digits=3,
+         col.names = c("Chatbot",
+                       "Don't know it",
+                       "I know it, I've never used it",
+                        "Used it in academic context",
+                        "Used it in academic and other contexts",
+                        "Used it only outside the academic context" ),
+         caption = "What specific chatbots have teachers used?",
+  ) %>%
+  kable_styling( full_width = FALSE )
+```
