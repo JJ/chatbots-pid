@@ -1,7 +1,7 @@
 library(ggplot2)
 library(dplyr)
 
-frecuencias_data <- read.csv("data/chatbots-uso-docentes.csv", header = TRUE, na.strings="", sep = ";")
+frecuencias_data <- read.csv("data/chatbots-en.csv", header = TRUE, na.strings="", sep = ";")
 
 columnas <- strsplit("ChatGPT;Claude;Copilot;DeepSeek;Gemini;NotebookLM;Perplexity", ";")
 resultados_uso <- data.frame( chatbot=character(),
@@ -47,4 +47,4 @@ ggplot(resultados_uso, aes(x=chatbot, fill=frecuencia, y = porcentaje)) +
     theme_minimal() +
     theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
-ggsave("figures/frecuencias-uso-chatbots-docentes.png", width = 10, height = 6)
+ggsave("figures/frecuencias-uso-chatbots.png", width = 10, height = 6)
