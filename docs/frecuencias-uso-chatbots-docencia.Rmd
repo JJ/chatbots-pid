@@ -15,6 +15,7 @@ frecuencias_data <- read.csv("../data/chatbots-uso-docentes.csv", header = TRUE,
 columnas <- strsplit("ChatGPT;Claude;Copilot;DeepSeek;Gemini;NotebookLM;Perplexity", ";")
 resultados_uso <- data.frame( chatbot=character(),
                               frecuencia=character(),
+                              respuestas = numeric(),
                               porcentaje = numeric() );
 
 for ( i in columnas[[1]] ) {
@@ -22,7 +23,7 @@ for ( i in columnas[[1]] ) {
                                        frecuencias_data[i])
 
   porcentajes_data <-  frecuencias_uso_data %>% group_by(.data[[i]]) %>% summarise(Número = n()) %>%
-    mutate(Proporción = Número / sum(Número))
+    mutate(Proporción = Número / sum(Número), Respuestas = Número)
 
   porcentajes_data$Frecuencia <- factor(porcentajes_data[[i]],
                                       levels = c("No lo conozco",
@@ -38,6 +39,7 @@ for ( i in columnas[[1]] ) {
     resultados_uso <- rbind( resultados_uso,
                              data.frame( chatbot = i,
                                          frecuencia = j,
+                                         respuestas = sum( porcentajes_data$Número[porcentajes_data$Frecuencia == j] ),
                                          porcentaje = sum( porcentajes_data$Proporción[porcentajes_data$Frecuencia == j] )
                              )
     )
@@ -70,11 +72,12 @@ And now the table
 ```{r tabla, echo=FALSE, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
 library(kableExtra)
+resultados_uso$porcentaje <- NULL
 resultados_uso %>%
-  pivot_wider(names_from = frecuencia, values_from = porcentaje) %>%
+  pivot_wider(names_from = frecuencia, values_from = respuestas) %>%
   arrange(desc(`Lo uso tanto en el conexto universitario como para otras tareas`)) %>%
-  kable( digits=3,
-         col.names = c("Chatbot",
+  kable(  col.names = c("Chatbot",
+                        
                        "Don't know it",
                        "I know it, I've never used it",
                         "Used it in academic context",
