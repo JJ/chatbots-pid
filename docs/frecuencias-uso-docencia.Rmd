@@ -16,6 +16,7 @@ columnas <- strsplit("administrativas;burocracia;calendario;comunicacion-profeso
 
 resultados_uso <- data.frame( uso=character(),
                               frecuencia=character(),
+                              respuestas=numeric(),
                               porcentaje = numeric() );
 
 for ( i in columnas[[1]] ) {
@@ -32,6 +33,7 @@ for ( i in columnas[[1]] ) {
     resultados_uso <- rbind( resultados_uso,
                              data.frame( uso = i,
                                          frecuencia = j,
+                                         respuestas = sum( porcentajes_data$Número[porcentajes_data$Frecuencia == j] ),
                                          porcentaje = sum( porcentajes_data$Proporción[porcentajes_data$Frecuencia == j] )
                              )
     )
@@ -51,7 +53,6 @@ resultados_uso$uso <- factor(resultados_uso$uso,
                                filter(frecuencia == "Lo he hecho") %>%
                                arrange(porcentaje) %>% pull(uso)
                              )
-
 translated_labels <- c("Interaction w/ students",
                                "Calendar",
                                "Administration",
@@ -68,7 +69,7 @@ ggplot(resultados_uso, aes(x=uso, fill=frecuencia, y = porcentaje)) +
   labs(title="Teacher's use of chatbots", x="Application", y="Proportion") +
   scale_x_discrete( labels = translated_labels ) +
   theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+  theme(axis.text.x = element_text(angle = 60, hjust = 1))
 ```
 
 En la figura están organizados por valor creciente de la respuesta "Lo ha hecho"; se ve un uso más intenso cuando se trata de trabajar con texto, más que en temas relacionados con interacción. Lo vemos también en la siguiente tabla
@@ -76,8 +77,9 @@ En la figura están organizados por valor creciente de la respuesta "Lo ha hecho
 ```{r tabla, echo=FALSE, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
 library(kableExtra)
+resultados_uso$porcentaje <- NULL
 resultados_uso %>%
-  pivot_wider(names_from = frecuencia, values_from = porcentaje) %>%
+  pivot_wider(names_from = frecuencia, values_from = respuestas) %>%
   arrange(desc(`Lo he hecho`)) %>%
   kable( digits=3,
          col.names = c("Application", "It's not useful", "I'd like to do it", "I've done it"),
