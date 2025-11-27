@@ -1,0 +1,78 @@
+---
+title: "uso-chatbots-docentes"
+author: "JJ Merelo"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE, echo=FALSE}
+library(ggplot2)
+library(dplyr)
+
+estudiantes_piloto <- read.csv("../data-raw/estudiantes-piloto.csv", header = TRUE, na.strings="", sep = ";") %>% filter( X.Cuál.es.su.perfil. != "Docente" )
+estudiantes_final <- read.csv("../data-raw/encuesta.csv", header = TRUE, na.strings="", sep = ";") %>% filter( X.Cuál.es.su.perfil. != "Docente" )
+docentes_piloto <- read.csv("../data-raw/respuestas-docentes-piloto.csv", header = TRUE, na.strings="", sep = ";") %>% filter( X.Cuál.es.su.perfil. == "Docente" )
+
+docentes_final <- read.csv("../data-raw/respuestas-docentes.csv", header = TRUE, na.strings="", sep = ";")
+docentes_final$X.Cuál.es.su.perfil. <- "Docente" 
+
+estudiantes_data <- data.frame( survey=c(rep("Pilot", nrow(estudiantes_piloto)),
+                                         rep("Final", nrow(estudiantes_final)),
+                                         rep("Pilot", nrow(docentes_piloto)),
+                                         rep("Final", nrow(docentes_final))),
+                                profile=c(estudiantes_piloto$X.Cuál.es.su.perfil.,
+                                          estudiantes_final$X.Cuál.es.su.perfil.,
+                                          docentes_piloto$X.Cuál.es.su.perfil.,
+                                          docentes_final$X.Cuál.es.su.perfil. ),
+                                disciplina=c(estudiantes_piloto$X.Indique.su.disciplina.,
+                                              estudiantes_final$X.Indique.su.disciplina.,
+                                              docentes_piloto$X.Indique.su.disciplina.,
+                                              docentes_final$X.Indique.su.disciplina. )
+                               )
+
+```
+
+## Uso de chatbots por parte de los docentes
+
+En la encuesta se preguntó a los docentes sobre el uso que hacían de chatbots para diferentes tareas relacionadas con la docencia; las preguntas son equivalentes a las respondidas por los estudiantes pero reducidas al ámbito de docencia. Hubo `r length(frecuencias_data$Disciplina)` respuestas, de las cuales `r length(frecuencias_data[ frecuencias_data$Disciplina == "TIC",]$Disciplina)` eran de docentes TIC. Un análisis chi cuadrado de las diferencias entre docentes TICs y otros no arrojó diferencias significativas, por lo que se decidió analizar en conjunto todas las respuestas.
+
+```{r grafico, echo=FALSE, message=FALSE, warning=FALSE}
+resultados_uso$uso <- factor(resultados_uso$uso,
+                             levels = resultados_uso %>%
+                               filter(frecuencia == "Lo he hecho") %>%
+                               arrange(porcentaje) %>% pull(uso)
+                             )
+translated_labels <- c("Interaction w/ students",
+                               "Calendar",
+                               "Administration",
+                               "Bureaucracy",
+                               "Help with feedback",
+                               "Private tutor",
+                               "Summarizing texts",
+                       "Answer syllabus questions",
+                               "Generate material",
+                               "Preparing exams",
+                               "Translate texts")  
+ggplot(resultados_uso, aes(x=uso, fill=frecuencia, y = porcentaje)) +
+  geom_bar( stat="identity", position="dodge") +
+  labs(title="Teacher's use of chatbots", x="Application", y="Proportion") +
+  scale_x_discrete( labels = translated_labels ) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 60, hjust = 1))
+```
+
+En la figura están organizados por valor creciente de la respuesta "Lo ha hecho"; se ve un uso más intenso cuando se trata de trabajar con texto, más que en temas relacionados con interacción. Lo vemos también en la siguiente tabla
+
+```{r tabla, echo=FALSE, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+library(kableExtra)
+resultados_uso$porcentaje <- NULL
+resultados_uso %>%
+  pivot_wider(names_from = frecuencia, values_from = respuestas) %>%
+  arrange(desc(`Lo he hecho`)) %>%
+  kable( digits=3,
+         col.names = c("Application", "It's not useful", "I'd like to do it", "I've done it"),
+         caption = "How often I have used chatbots for this purpose",
+  ) %>%
+  kable_styling( full_width = FALSE )
+```
