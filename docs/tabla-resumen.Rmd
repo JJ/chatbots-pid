@@ -45,6 +45,7 @@ summary_data$proportion <- NULL
 library(knitr)
 library(kableExtra)
 
+write.csv(summary_data, file="../docs/tabla-resumen-perfiles.csv", row.names=FALSE)
 summary_data %>% kable(digits=2, col.names = c("Profile","Study Area","Gender","Number","%")) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"))
 ```
