@@ -1,0 +1,100 @@
+"uso","discipline","frequency","responses","percentage"
+"Administration","Language-related","Lo he hecho",10,0.294117647058824
+"Administration","Language-related","Me gustaría hacerlo",9,0.264705882352941
+"Administration","Language-related","No me parece útil",15,0.441176470588235
+"Administration","Other","Lo he hecho",7,0.127272727272727
+"Administration","Other","Me gustaría hacerlo",19,0.345454545454545
+"Administration","Other","No me parece útil",29,0.527272727272727
+"Administration","IT","Lo he hecho",21,0.313432835820896
+"Administration","IT","Me gustaría hacerlo",23,0.343283582089552
+"Administration","IT","No me parece útil",23,0.343283582089552
+"Bureaucracy","Language-related","Lo he hecho",2,0.0588235294117647
+"Bureaucracy","Language-related","Me gustaría hacerlo",11,0.323529411764706
+"Bureaucracy","Language-related","No me parece útil",21,0.617647058823529
+"Bureaucracy","Other","Lo he hecho",12,0.218181818181818
+"Bureaucracy","Other","Me gustaría hacerlo",18,0.327272727272727
+"Bureaucracy","Other","No me parece útil",25,0.454545454545455
+"Bureaucracy","IT","Lo he hecho",16,0.238805970149254
+"Bureaucracy","IT","Me gustaría hacerlo",28,0.417910447761194
+"Bureaucracy","IT","No me parece útil",23,0.343283582089552
+"Calendar","Language-related","Lo he hecho",2,0.0588235294117647
+"Calendar","Language-related","Me gustaría hacerlo",14,0.411764705882353
+"Calendar","Language-related","No me parece útil",18,0.529411764705882
+"Calendar","Other","Lo he hecho",5,0.0909090909090909
+"Calendar","Other","Me gustaría hacerlo",16,0.290909090909091
+"Calendar","Other","No me parece útil",34,0.618181818181818
+"Calendar","IT","Lo he hecho",5,0.0746268656716418
+"Calendar","IT","Me gustaría hacerlo",20,0.298507462686567
+"Calendar","IT","No me parece útil",42,0.626865671641791
+"Interaction w/ teachers","Language-related","Lo he hecho",6,0.176470588235294
+"Interaction w/ teachers","Language-related","Me gustaría hacerlo",2,0.0588235294117647
+"Interaction w/ teachers","Language-related","No me parece útil",26,0.764705882352941
+"Interaction w/ teachers","Other","Lo he hecho",6,0.109090909090909
+"Interaction w/ teachers","Other","Me gustaría hacerlo",10,0.181818181818182
+"Interaction w/ teachers","Other","No me parece útil",39,0.709090909090909
+"Interaction w/ teachers","IT","Lo he hecho",11,0.164179104477612
+"Interaction w/ teachers","IT","Me gustaría hacerlo",16,0.238805970149254
+"Interaction w/ teachers","IT","No me parece útil",40,0.597014925373134
+"Help with feedback","Language-related","Lo he hecho",18,0.529411764705882
+"Help with feedback","Language-related","Me gustaría hacerlo",11,0.323529411764706
+"Help with feedback","Language-related","No me parece útil",5,0.147058823529412
+"Help with feedback","Other","Lo he hecho",27,0.490909090909091
+"Help with feedback","Other","Me gustaría hacerlo",17,0.309090909090909
+"Help with feedback","Other","No me parece útil",11,0.2
+"Help with feedback","IT","Lo he hecho",51,0.761194029850746
+"Help with feedback","IT","Me gustaría hacerlo",11,0.164179104477612
+"Help with feedback","IT","No me parece útil",5,0.0746268656716418
+"Generate material","Language-related","Lo he hecho",17,0.5
+"Generate material","Language-related","Me gustaría hacerlo",8,0.235294117647059
+"Generate material","Language-related","No me parece útil",9,0.264705882352941
+"Generate material","Other","Lo he hecho",25,0.454545454545455
+"Generate material","Other","Me gustaría hacerlo",16,0.290909090909091
+"Generate material","Other","No me parece útil",14,0.254545454545455
+"Generate material","IT","Lo he hecho",45,0.671641791044776
+"Generate material","IT","Me gustaría hacerlo",16,0.238805970149254
+"Generate material","IT","No me parece útil",6,0.0895522388059701
+"Answer syllabus questions","Language-related","Lo he hecho",22,0.647058823529412
+"Answer syllabus questions","Language-related","Me gustaría hacerlo",8,0.235294117647059
+"Answer syllabus questions","Language-related","No me parece útil",4,0.117647058823529
+"Answer syllabus questions","Other","Lo he hecho",35,0.636363636363636
+"Answer syllabus questions","Other","Me gustaría hacerlo",10,0.181818181818182
+"Answer syllabus questions","Other","No me parece útil",10,0.181818181818182
+"Answer syllabus questions","IT","Lo he hecho",58,0.865671641791045
+"Answer syllabus questions","IT","Me gustaría hacerlo",7,0.104477611940299
+"Answer syllabus questions","IT","No me parece útil",2,0.0298507462686567
+"Preparing exams","Language-related","Lo he hecho",21,0.617647058823529
+"Preparing exams","Language-related","Me gustaría hacerlo",9,0.264705882352941
+"Preparing exams","Language-related","No me parece útil",4,0.117647058823529
+"Preparing exams","Other","Lo he hecho",31,0.563636363636364
+"Preparing exams","Other","Me gustaría hacerlo",15,0.272727272727273
+"Preparing exams","Other","No me parece útil",9,0.163636363636364
+"Preparing exams","IT","Lo he hecho",44,0.656716417910448
+"Preparing exams","IT","Me gustaría hacerlo",16,0.238805970149254
+"Preparing exams","IT","No me parece útil",7,0.104477611940299
+"Private tutor","Language-related","Lo he hecho",17,0.5
+"Private tutor","Language-related","Me gustaría hacerlo",10,0.294117647058824
+"Private tutor","Language-related","No me parece útil",7,0.205882352941176
+"Private tutor","Other","Lo he hecho",29,0.527272727272727
+"Private tutor","Other","Me gustaría hacerlo",13,0.236363636363636
+"Private tutor","Other","No me parece útil",13,0.236363636363636
+"Private tutor","IT","Lo he hecho",55,0.82089552238806
+"Private tutor","IT","Me gustaría hacerlo",8,0.119402985074627
+"Private tutor","IT","No me parece útil",4,0.0597014925373134
+"Summarizing texts","Language-related","Lo he hecho",19,0.558823529411765
+"Summarizing texts","Language-related","Me gustaría hacerlo",10,0.294117647058824
+"Summarizing texts","Language-related","No me parece útil",5,0.147058823529412
+"Summarizing texts","Other","Lo he hecho",32,0.581818181818182
+"Summarizing texts","Other","Me gustaría hacerlo",13,0.236363636363636
+"Summarizing texts","Other","No me parece útil",10,0.181818181818182
+"Summarizing texts","IT","Lo he hecho",47,0.701492537313433
+"Summarizing texts","IT","Me gustaría hacerlo",14,0.208955223880597
+"Summarizing texts","IT","No me parece útil",6,0.0895522388059701
+"Translate texts","Language-related","Lo he hecho",18,0.529411764705882
+"Translate texts","Language-related","Me gustaría hacerlo",5,0.147058823529412
+"Translate texts","Language-related","No me parece útil",11,0.323529411764706
+"Translate texts","Other","Lo he hecho",23,0.418181818181818
+"Translate texts","Other","Me gustaría hacerlo",14,0.254545454545455
+"Translate texts","Other","No me parece útil",18,0.327272727272727
+"Translate texts","IT","Lo he hecho",48,0.716417910447761
+"Translate texts","IT","Me gustaría hacerlo",5,0.0746268656716418
+"Translate texts","IT","No me parece útil",14,0.208955223880597

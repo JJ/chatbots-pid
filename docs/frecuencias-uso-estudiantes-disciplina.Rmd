@@ -15,10 +15,11 @@ frecuencias_data <- read.csv("../data/frecuencias-uso.csv", header = TRUE, na.st
 columnas <- strsplit("administrativas;burocracia;calendario;comunicacion-profesorado;feedback;generar-material;preguntas-temario;preparar-examen;profesor-particular;resumen;traduccion", ";")
 
 resultados_uso <- data.frame( uso=character(),
-                              disciplina = character(),
-                              frecuencia=character(),
-                              respuestas=numeric(),
-                              porcentaje = numeric() );
+                              discipline = character(),
+                              usage_level = character(),
+                              frequency=character(),
+                              responses=numeric(),
+                              percentage = numeric() );
 
 for ( i in columnas[[1]] ) {
   i <- gsub("-", ".", i)
@@ -29,41 +30,21 @@ for ( i in columnas[[1]] ) {
 
   porcentajes_data$Frecuencia <- factor(porcentajes_data[[i]],
                                         levels = c("No me parece útil", "Me gustaría hacerlo", "Lo he hecho"))
-
+  
   for (j in 1:nrow(porcentajes_data) ) {
       resultados_uso <- rbind( resultados_uso,
-                               data.frame( uso = i,
-                                          frequency = porcentajes_uso[j]$Percentaje,
-                                          discipline = porcentajes_uso[j]$Disciplina,
-                                          
+                               data.frame(uso = i,
+                                          discipline = porcentajes_data[j,]$Disciplina,
+                                          usage_level= porcentajes_data[j,i],
+                                          frequency = porcentajes_data[j,]$Percentage,
+                                          responses = porcentajes_data[j,]$Responses,
+                                          percentage = porcentajes_data[j,]$Percentage )
       )
+      print( resultados_uso)
     }
 
   }
-}
 
-resultados_uso$uso <- factor(resultados_uso$uso,
-                             levels = resultados_uso %>%
-                               filter(frecuencia == "Lo he hecho") %>%
-                               arrange(porcentaje) %>% pull(uso)
-                             )
-translated_labels <- c("Interaction w/ teachers",
-                               "Calendar",
-                               "Administration",
-                               "Bureaucracy",
-                               "Help with feedback",
-                               "Private tutor",
-                               "Summarizing texts",
-                       "Answer syllabus questions",
-                               "Generate material",
-                               "Preparing exams",
-                               "Translate texts")  
-ggplot(resultados_uso, aes(x=uso, fill=frecuencia, y = porcentaje)) +
-  geom_bar( stat="identity", position="dodge") +
-  labs(title="Students's use of chatbots", x="Application", y="Proportion") +
-  scale_x_discrete( labels = translated_labels ) +
-  theme_minimal() +
-  theme(axis.text.x = element_text(angle = 60, hjust = 1))
 ```
 
 The same data in a table
@@ -71,7 +52,28 @@ The same data in a table
 ```{r tabla, echo=FALSE, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
 library(kableExtra)
-resultados_uso$porcentaje <- NULL
+
+resultados_uso$uso <- recode( resultados_uso$uso, 
+                              "administrativas" = "Administration",
+                              "burocracia" = "Bureaucracy",
+                              "calendario" = "Calendar",
+                              "comunicacion.profesorado" = "Interaction w/ teachers",
+                              "feedback" = "Help with feedback",
+                              "generar.material" = "Generate material",
+                              "preguntas.temario" = "Answer syllabus questions",
+                              "preparar.examen" = "Preparing exams",
+                              "profesor.particular" = "Private tutor",
+                              "resumen" = "Summarizing texts",
+                              "traduccion" = "Translate texts"
+)
+
+resultados_uso$discipline <- recode( resultados_uso$discipline, 
+                              "FFL" = "Language-related",
+                              "TIC" = "IT",
+                              "Otras" = "Other"
+)
+
+resultados_uso$
 resultados_uso %>%
   pivot_wider(names_from = frecuencia, values_from = respuestas) %>%
   arrange(desc(`Lo he hecho`)) %>%
