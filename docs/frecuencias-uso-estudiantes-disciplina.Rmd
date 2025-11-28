@@ -5,7 +5,7 @@ date: "`r Sys.Date()`"
 output: html_document
 ---
 
-```{r setup,  echo=FALSE}
+```{r setup, echo=FALSE}
 library(ggplot2)
 library(dplyr)
 library(tidyr)
@@ -16,7 +16,6 @@ columnas <- strsplit("administrativas;burocracia;calendario;comunicacion-profeso
 
 resultados_uso <- data.frame( uso=character(),
                               discipline = character(),
-                              usage_level = character(),
                               frequency=character(),
                               responses=numeric(),
                               percentage = numeric() );
@@ -35,12 +34,10 @@ for ( i in columnas[[1]] ) {
       resultados_uso <- rbind( resultados_uso,
                                data.frame(uso = i,
                                           discipline = porcentajes_data[j,]$Disciplina,
-                                          usage_level= porcentajes_data[j,i],
-                                          frequency = porcentajes_data[j,]$Percentage,
+                                          frequency = porcentajes_data[j,]$Frecuencia,
                                           responses = porcentajes_data[j,]$Responses,
                                           percentage = porcentajes_data[j,]$Percentage )
       )
-      print( resultados_uso)
     }
 
   }
@@ -49,7 +46,7 @@ for ( i in columnas[[1]] ) {
 
 The same data in a table
 
-```{r tabla, echo=FALSE, echo=FALSE, message=FALSE, warning=FALSE}
+```{r tabla, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
 library(kableExtra)
 
@@ -73,13 +70,21 @@ resultados_uso$discipline <- recode( resultados_uso$discipline,
                               "Otras" = "Other"
 )
 
-resultados_uso$
-resultados_uso %>%
-  pivot_wider(names_from = frecuencia, values_from = respuestas) %>%
-  arrange(desc(`Lo he hecho`)) %>%
-  kable( digits=2,
-         col.names = c("Application", "It's not useful", "I'd like to do it", "I've done it"),
-         caption = "How often I have used chatbots for this purpose",
-  ) %>%
-  kable_styling( full_width = FALSE )
+resultados_uso$frequency <- recode( resultados_uso$frequency,
+                                    "No me parece útil" = "It's not useful",
+                                    "Me gustaría hacerlo)" = "I'd like to use it",
+                                    "Lo he hecho" = "I've used it" )
+
+library(tidyr)
+
+write.csv( resultados_uso, file="../data/frecuencias-uso-docentes-procesado.csv", row.names=FALSE )
+table_use_frequency <- resultados_uso %>%
+  pivot_wider(id_cols = uso, names_from = c(discipline,frequency), values_from = responses)
+
+
+#  kable( digits=2,
+#         col.names = c("Application", "It's not useful", "I'd like to do it", "I've done it"),
+  #        caption = "How often I have used chatbots for this purpose",
+  # ) %>%
+  # kable_styling( full_width = FALSE )
 ```
