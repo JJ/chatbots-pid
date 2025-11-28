@@ -11,15 +11,26 @@ porcentajes_data$Disciplina <- factor(porcentajes_data$Disciplina,
                                                  "TIC",
                                                  "Otras")
                                       )
+porcentajes_data$Discipline <- recode(porcentajes_data$Disciplina,
+                                        "FFL" = "Languages",
+                                        "TIC" = "IT",
+                                        "Otras" = "Others"
+                                        )
 porcentajes_data$Frecuencia <- factor(porcentajes_data$Frecuencia,
                                       levels = c("Nunca", "Casi nunca", "A veces", "Casi siempre", "Siempre"))
-
-ggplot(porcentajes_data, aes(x=Frecuencia, fill=Disciplina, y = Proporción)) +
+porcentajes_data$Frequency <- recode(porcentajes_data$Frecuencia,
+                                      "Nunca" = "Never",
+                                      "Casi nunca" = "Almost never",
+                                      "A veces" = "Sometimes",
+                                      "Casi siempre" = "Almost always",
+                                      "Siempre" = "Always"
+                                      )
+ggplot(porcentajes_data, aes(x=Frequency, fill=Discipline, y = Proporción)) +
   geom_bar( stat="identity", position="dodge") +
-  labs(title="Frecuencia de uso", x="Frecuencia", y="Proporción") +
+  labs(title="How often is it used", x="Frequency", y="Proportion") +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
-ggsave("figures/frecuencias.png", width = 10, height = 6)
+ggsave("figures/frecuencias-en.png", width = 10, height = 6)
 
 frecuencia_tabla <- table( frecuencias_data$Frecuencia, frecuencias_data$Disciplina)
 chisq_frecuencia <- chisq.test(frecuencia_tabla)
