@@ -81,10 +81,12 @@ write.csv( resultados_uso, file="../data/frecuencias-uso-docentes-procesado.csv"
 table_use_frequency <- resultados_uso %>%
   pivot_wider(id_cols = uso, names_from = c(discipline,frequency), values_from = responses)
 
+library(kableExtra)
+kable( table_use_frequency,
+       col.names = c("Usage level", rep(c("It's not useful", "I'd like to use it", "I've used it"), 3) ),
+       align="c" ) %>% 
+  add_header_above( c(" " = 1, "Language-related" = 3, "IT" = 3, "Other" = 3) ) %>%
+  column_spec(1, bold = TRUE, width="15em") %>%
+  row_spec(0, bold = TRUE, background = "#D3D3D3")
 
-#  kable( digits=2,
-#         col.names = c("Application", "It's not useful", "I'd like to do it", "I've done it"),
-  #        caption = "How often I have used chatbots for this purpose",
-  # ) %>%
-  # kable_styling( full_width = FALSE )
 ```
