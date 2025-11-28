@@ -1,0 +1,18 @@
+"profile","Study_Area","Gender","n","percentage"
+"Student","IT","Female",22,18.8034188034188
+"Student","IT","Male",91,77.7777777777778
+"Student","IT","Prefer not to say",4,3.41880341880342
+"Student","Language studies","Female",41,73.2142857142857
+"Student","Language studies","Male",14,25
+"Student","Language studies","Prefer not to say",1,1.78571428571429
+"Student","Other","Female",40,60.6060606060606
+"Student","Other","Male",25,37.8787878787879
+"Student","Other","Prefer not to say",1,1.51515151515152
+"Teacher","IT","Female",2,8
+"Teacher","IT","Male",21,84
+"Teacher","IT","Prefer not to say",2,8
+"Teacher","Language studies","Female",8,80
+"Teacher","Language studies","Male",1,10
+"Teacher","Language studies","Prefer not to say",1,10
+"Teacher","Other","Female",1,9.09090909090909
+"Teacher","Other","Male",10,90.9090909090909
