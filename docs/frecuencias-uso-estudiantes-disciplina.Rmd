@@ -30,15 +30,12 @@ for ( i in columnas[[1]] ) {
   porcentajes_data$Frecuencia <- factor(porcentajes_data[[i]],
                                         levels = c("No me parece útil", "Me gustaría hacerlo", "Lo he hecho"))
 
-  for (j in levels(porcentajes_data$Frecuencia) ) {
-    for ( k in levels( porcentajes_data$Disciplina ) ) {
+  for (j in 1:nrow(porcentajes_data) ) {
       resultados_uso <- rbind( resultados_uso,
-                             data.frame( uso = i,
-                                         frecuencia = j,
-                                         disciplina = k,
-                                         respuestas = sum( porcentajes_data$Número[porcentajes_data$Frecuencia == j] ),
-                                         porcentaje = sum( porcentajes_data$Proporción[porcentajes_data$Frecuencia == j] )
-                             )
+                               data.frame( uso = i,
+                                          frequency = porcentajes_uso[j]$Percentaje,
+                                          discipline = porcentajes_uso[j]$Disciplina,
+                                          
       )
     }
 
