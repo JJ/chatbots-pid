@@ -46,3 +46,5 @@ inc/
 .Rhistory.precomp
 .precomp/
 .Rhistory
+
+.DS_Store
