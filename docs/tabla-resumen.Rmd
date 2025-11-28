@@ -1,5 +1,5 @@
 ---
-title: "uso-chatbots-docentes"
+title: "Tabla resumen de perfiles de estudiantes y docentes"
 author: "JJ Merelo"
 date: "`r Sys.Date()`"
 output: html_document
