@@ -40,11 +40,12 @@ ggplot(centers_to_plot, aes(x = as.factor(Variable), y = Value, group=Center,col
   geom_line() +
   geom_point() +
   labs(title = "Intensity clusters centroids", y = "Centroid value") +
-  scale_x_discrete(name="Aplicación", labels = c("8" ="Administrative", "9"="Bureaucracy",
+  scale_x_discrete(name="Application",
+                   labels = c("8" ="Administrative", "9"="Bureaucracy",
                               "10"="Calendar", "11"="Commmunication prof.",
-                                                        "4"="Feedback", "5"="Generate material",
+                              "4"="Feedback", "5"="Generate material",
                               "1"="Answer syllabus questions",
-                                                        "2"="Prepare exam", "3"="Private tutor", "6"="Summary", "7"="Translation")) +
+                              "2"="Prepare exam", "3"="Private tutor", "6"="Summary", "7"="Translation")) +
   theme_minimal()+
   theme(axis.text.x = element_text(face="bold", color="#993333",
                                    size=10, angle=45)) + # eliminate legend
@@ -85,9 +86,13 @@ cantidad_cluster_por_disciplina$Disciplina <- factor(cantidad_cluster_por_discip
                                                  "TIC",
                                                  "Otras")
 )
-ggplot(cantidad_cluster_por_disciplina, aes(x=Cluster, fill=Disciplina, y = Cantidad)) +
+cantidad_cluster_por_disciplina$Discipline <- recode(cantidad_cluster_por_disciplina$Disciplina,
+                                         "FFL" = "Languages",
+                                         "TIC" = "IT",
+                                         "Otras" = "Other")
+ggplot(cantidad_cluster_por_disciplina, aes(x=Cluster, fill=Discipline, y = Cantidad)) +
   geom_bar( stat="identity", position="stack") +
-  labs(title="Cantidad en cada cluster por disciplina", x="Cluster", y="Cantidad") +
+  labs(title="Distribution in every cluster per discipline", x="Cluster", y="Quantity") +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
-ggsave("figures/cantidad-cluster-por-disciplina-intensidad.png", width = 10, height = 6)
+ggsave("figures/cantidad-cluster-por-disciplina-intensidad-en.png", width = 10, height = 6)
