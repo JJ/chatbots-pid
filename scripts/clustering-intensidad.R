@@ -18,10 +18,7 @@ fviz_nbclust(intensidad_vectores, kmeans, method = "wss")
 ggsave("figures/nb-clusters-intensidad.png", width = 10, height = 6)
 clusters <- kmeans(intensidad_vectores, centers = 3, nstart = 25)
 
-# reorganize cluster$centers in three columns, the first column will have the center number, the second the order of the column and the third the value of that element of the center
-
 centers_df <- as.data.frame(clusters$centers)
-# convert the "Variable" column values to values from 1 to 11 according to order
 centers_to_plot <- centers_df %>%
   mutate(Center = row_number()) %>%
   pivot_longer(-Center, names_to = "Variable", values_to = "Value") %>%
@@ -42,17 +39,18 @@ centers_to_plot <- centers_df %>%
 ggplot(centers_to_plot, aes(x = as.factor(Variable), y = Value, group=Center,color= as.factor(Center))) +
   geom_line() +
   geom_point() +
-  labs(title = "Centroides de los clusters de intensidad", y = "Valor del centroide") +
-  scale_x_discrete(name="Aplicación", labels = c("8" ="Admin. asignatura", "9"="Burocracia",
-                              "10"="Calendario", "11"="Comunicación prof.",
-                                                        "4"="Feedback", "5"="Generar material",
-                              "1"="Preguntas del temario",
-                                                        "2"="Preparar examen", "3"="Profesor particular", "6"="Resumen", "7"="Traducción")) +
+  labs(title = "Intensity clusters centroids", y = "Centroid value") +
+  scale_x_discrete(name="Aplicación", labels = c("8" ="Administrative", "9"="Bureaucracy",
+                              "10"="Calendar", "11"="Commmunication prof.",
+                                                        "4"="Feedback", "5"="Generate material",
+                              "1"="Answer syllabus questions",
+                                                        "2"="Prepare exam", "3"="Private tutor", "6"="Summary", "7"="Translation")) +
   theme_minimal()+
   theme(axis.text.x = element_text(face="bold", color="#993333",
-                                   size=10, angle=45))
+                                   size=10, angle=45)) + # eliminate legend
+  theme(legend.position="none")
 
-ggsave("figures/centroides-clusters-intensidad.png", width = 10, height = 6)
+ggsave("figures/centroides-clusters-intensidad-en.png", width = 10, height = 6)
 
 frecuencias_data$Cluster <- as.factor(clusters$cluster)
 
