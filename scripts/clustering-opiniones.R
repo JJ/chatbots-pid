@@ -41,7 +41,8 @@ ggplot(centers_to_plot, aes(x = as.factor(Variable), y = Value, group=Center,col
                               "6"="Ethical issues")) +
   theme_minimal()+
   theme(axis.text.x = element_text(face="bold", color="#993333",
-                                   size=10, angle=45))
+                                   size=10, angle=45))+
+  guides(color=guide_legend(title="Cluster #"))
 
 ggsave("figures/centroides-clusters-opiniones-en.png", width = 10, height = 6)
 
@@ -61,7 +62,8 @@ ggplot(porcentaje_disciplina_por_cluster, aes(x=Cluster, fill=Disciplina, y = Pr
   geom_bar( stat="identity", position="stack") +
   labs(title="Proporción de disciplinas por cluster de intensidad", x="Cluster", y="Proporción") +
   theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  guides(color=guide_legend(title="Cluster #"))
 ggsave("figures/porcentaje-disciplinas-por-cluster-opiniones.png", width = 10, height = 6)
 
 frecuencias_data %>% group_by( Disciplina, Cluster ) %>%
