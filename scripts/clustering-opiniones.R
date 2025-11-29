@@ -3,7 +3,6 @@ library(dplyr)
 library(tidyverse)
 library(factoextra)
 
-# Lleva a cabo un clustering de las respuestas a las preguntas sobre opiniones
 frecuencias_data <- read.csv("data/actitudes.csv", header = TRUE, na.strings="", sep = ";")
 
 opiniones_vectores <- frecuencias_data %>%
@@ -27,25 +26,24 @@ centers_to_plot <- centers_df %>%
 ggplot(centers_to_plot, aes(x = as.factor(Variable), y = Value, group=Center,color= as.factor(Center))) +
   geom_line() +
   geom_point() +
-  labs(title = "Centroides de los clusters de opiniones", y = "Valor del centroide") +
-  scale_x_discrete(name="Aplicación",
-                   labels = c("1"="Ayudan",
-                              "8"="Dependencia tecnológica",
-                              "3"= "Explicaciones claras",
-                              "11"="Información sesgada",
-                              "5"= "Datos sensibles",
-                              "2"="Mejorar habilidades",
-                              "9"="No pensamiento crítico",
-                              "10"="No respetan privacidad",
-                              "7"="Parte integral",
-                              "4"="Respuestas confiables",
-                              "6"="Ético")
-                   ) +
+  labs(title = "Centroids of the opinion clusters", y = "Centroide value") +
+  scale_x_discrete(name="Opinions",
+                   labels = c("1"="Helpful",
+                              "8"="Tech cependence",
+                              "3"= "Clear explanation",
+                              "11"="Biased information",
+                              "5"= "Sensitive data",
+                              "2"="Improve skills",
+                              "9"="Lack of critical thinking",
+                              "10"="Disrespectful of privacy",
+                              "7"="Integral part of education",
+                              "4"="Reliable answers",
+                              "6"="Ethical issues")) +
   theme_minimal()+
   theme(axis.text.x = element_text(face="bold", color="#993333",
                                    size=10, angle=45))
 
-ggsave("figures/centroides-clusters-opiniones.png", width = 10, height = 6)
+ggsave("figures/centroides-clusters-opiniones-en.png", width = 10, height = 6)
 
 frecuencias_data$Cluster <- as.factor(clusters$cluster)
 
