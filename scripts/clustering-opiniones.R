@@ -84,9 +84,14 @@ cantidad_cluster_por_disciplina$Disciplina <- factor(cantidad_cluster_por_discip
                                                  "TIC",
                                                  "Otras")
 )
-ggplot(cantidad_cluster_por_disciplina, aes(x=Cluster, fill=Disciplina, y = Cantidad)) +
+
+cantidad_cluster_por_disciplina$Discipline <- recode(cantidad_cluster_por_disciplina$Disciplina,
+                                         "FFL" = "Languages",
+                                         "TIC" = "IT",
+                                         "Otras" = "Other")
+ggplot(cantidad_cluster_por_disciplina, aes(x=Cluster, fill=Discipline, y = Cantidad)) +
   geom_bar( stat="identity", position="stack") +
-  labs(title="Cantidad en cada cluster por disciplina", x="Cluster", y="Cantidad") +
+  labs(title="Distribution per cluster and discipline", x="Cluster", y="Quantity") +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
-ggsave("figures/cantidad-cluster-por-disciplina-opiniones.png", width = 10, height = 6)
+ggsave("figures/cantidad-cluster-por-disciplina-opiniones-en.png", width = 10, height = 6)
