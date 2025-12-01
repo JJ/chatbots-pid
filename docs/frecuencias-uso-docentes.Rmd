@@ -38,16 +38,7 @@ for ( i in columnas[[1]] ) {
       )
     }
 
-  }
-
-```
-
-The same data in a table
-
-```{r tabla, echo=FALSE, message=FALSE, warning=FALSE}
-library(knitr)
-library(kableExtra)
-
+}
 resultados_uso$uso <- recode( resultados_uso$uso, 
                               "administrativas" = "Administration",
                               "burocracia" = "Bureaucracy",
@@ -62,17 +53,30 @@ resultados_uso$uso <- recode( resultados_uso$uso,
                               "traduccion" = "Translate texts"
 )
 
+ggplot(resultados_uso, aes(x=uso, fill=frequency, y = percentage)) +
+  geom_bar( stat="identity", position="dodge") +
+  labs(title="Frequency of chatbot applications by teachers", x="Application", y="Proportion") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+```
+
+The same data in a table
+
+```{r tabla, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+library(kableExtra)
+
 resultados_uso$frequency <- recode( resultados_uso$frequency,
                                     "No me parece útil" = "It's not useful",
                                     "Me gustaría hacerlo)" = "I'd like to use it",
                                     "Lo he hecho" = "I've used it" )
 
-library(tidyr)
-
 table_use_frequency <- resultados_uso %>%
   pivot_wider(id_cols = uso, names_from = c(frequency), values_from = responses)
 
 library(kableExtra)
+options(knitr.kable.NA = 0)
 kable( table_use_frequency,
        col.names = c("Usage level",c("It's not useful", "I'd like to use it", "I've used it") ),
        align="c" ) %>% 
