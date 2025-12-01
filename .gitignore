@@ -48,3 +48,9 @@ inc/
 .Rhistory
 
 .DS_Store
+
+# Generated files
+*.html
+
+# Generated directories
+**/*_files/
