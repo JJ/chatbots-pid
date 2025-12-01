@@ -10,60 +10,36 @@ library(ggplot2)
 library(dplyr)
 library(tidyr)
 
-frecuencias_data <- read.csv("../data/frecuencias-uso.csv", header = TRUE, na.strings="", sep = ";")
+frecuencias_data <- read.csv("../data/frecuencias.csv", header = TRUE, sep = ";")
 
-columnas <- strsplit("administrativas;burocracia;calendario;comunicacion-profesorado;feedback;generar-material;preguntas-temario;preparar-examen;profesor-particular;resumen;traduccion", ";")
-
-resultados_uso <- data.frame( uso=character(),
-                              frecuencia=character(),
-                              respuestas=numeric(),
-                              porcentaje = numeric() );
-
-for ( i in columnas[[1]] ) {
-  i <- gsub("-", ".", i)
-
-  porcentajes_data <-  frecuencias_data[i] %>% drop_na() %>% group_by(.data[[i]]) %>%
+porcentajes_data <-  frecuencias_data %>% group_by(Disciplina,Frecuencia) %>%
   summarise(Número = n()) %>%
   mutate(Proporción = Número / sum(Número))
-
-  porcentajes_data$Frecuencia <- factor(porcentajes_data[[i]],
-                                        levels = c("No me parece útil", "Me gustaría hacerlo", "Lo he hecho"))
-
-  for (j in levels(porcentajes_data$Frecuencia) ) {
-    resultados_uso <- rbind( resultados_uso,
-                             data.frame( uso = i,
-                                         frecuencia = j,
-                                         respuestas = sum( porcentajes_data$Número[porcentajes_data$Frecuencia == j] ),
-                                         porcentaje = sum( porcentajes_data$Proporción[porcentajes_data$Frecuencia == j] )
-                             )
-    )
-  }
-
-}
-
-
-resultados_uso$uso <- factor(resultados_uso$uso,
-                             levels = resultados_uso %>%
-                               filter(frecuencia == "Lo he hecho") %>%
-                               arrange(porcentaje) %>% pull(uso)
-                             )
-translated_labels <- c("Interaction w/ teachers",
-                               "Calendar",
-                               "Administration",
-                               "Bureaucracy",
-                               "Help with feedback",
-                               "Private tutor",
-                               "Summarizing texts",
-                       "Answer syllabus questions",
-                               "Generate material",
-                               "Preparing exams",
-                               "Translate texts")  
-ggplot(resultados_uso, aes(x=uso, fill=frecuencia, y = porcentaje)) +
+porcentajes_data$Disciplina <- factor(porcentajes_data$Disciplina,
+                                      levels = c("FFL",
+                                                 "TIC",
+                                                 "Otras")
+                                      )
+porcentajes_data$Discipline <- recode(porcentajes_data$Disciplina,
+                                        "FFL" = "Languages",
+                                        "TIC" = "IT",
+                                        "Otras" = "Others"
+                                        )
+porcentajes_data$Frecuencia <- factor(porcentajes_data$Frecuencia,
+                                      levels = c("Nunca", "Casi nunca", "A veces", "Casi siempre", "Siempre"))
+porcentajes_data$Frequency <- recode(porcentajes_data$Frecuencia,
+                                      "Nunca" = "Never",
+                                      "Casi nunca" = "Almost never",
+                                      "A veces" = "Sometimes",
+                                      "Casi siempre" = "Almost always",
+                                      "Siempre" = "Always"
+                                      )
+ggplot(porcentajes_data, aes(x=Frequency, fill=Discipline, y = Proporción)) +
   geom_bar( stat="identity", position="dodge") +
-  labs(title="Students's use of chatbots", x="Application", y="Proportion") +
-  scale_x_discrete( labels = translated_labels ) +
+  labs(title="How often is it used", x="Frequency", y="Proportion") +
   theme_minimal() +
-  theme(axis.text.x = element_text(angle = 60, hjust = 1))
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
 ```
 
 The same data in a table
@@ -71,13 +47,19 @@ The same data in a table
 ```{r tabla, echo=FALSE, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
 library(kableExtra)
-resultados_uso$porcentaje <- NULL
-resultados_uso %>%
-  pivot_wider(names_from = frecuencia, values_from = respuestas) %>%
-  arrange(desc(`Lo he hecho`)) %>%
-  kable( digits=2,
-         col.names = c("Application", "It's not useful", "I'd like to do it", "I've done it"),
-         caption = "How often I have used chatbots for this purpose",
-  ) %>%
-  kable_styling( full_width = FALSE )
+
+porcentajes_data$Likert <- recode(porcentajes_data$Frecuencia,
+                                      "Nunca" = 0,
+                                      "Casi nunca" = 1,
+                                      "A veces" = 2,
+                                      "Casi siempre" = 3,
+                                      "Siempre" = 4
+                                      )
+
+promedio_data <- porcentajes_data %>% group_by(Discipline) %>%
+    summarise(Average = sum(Likert * Número) / sum(Número),
+              SD = sqrt( sum( Número * (Likert - (sum(Likert * Número) / sum(Número)))^2 ) / sum(Número) )
+              )
+
+write.csv(promedio_data, file = "../data/frecuencias-promedio-likert.csv", row.names = FALSE)
 ```

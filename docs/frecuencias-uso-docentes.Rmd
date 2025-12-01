@@ -1,0 +1,82 @@
+---
+title: "uso-chatbots-docentes"
+author: "JJ Merelo"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, echo=FALSE}
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+
+frecuencias_data <- read.csv("../data/frecuencias-uso-docentes.csv", header = TRUE, na.strings="", sep = ";")
+
+columnas <- strsplit("administrativas;burocracia;calendario;comunicacion-profesorado;feedback;generar-material;preguntas-temario;preparar-examen;profesor-particular;resumen;traduccion", ";")
+
+resultados_uso <- data.frame( uso=character(),
+                              frequency=character(),
+                              responses=numeric(),
+                              percentage = numeric() );
+
+for ( i in columnas[[1]] ) {
+  i <- gsub("-", ".", i)
+
+  porcentajes_data <-  frecuencias_data %>% drop_na() %>% group_by(.data[[i]]) %>%
+    summarise(Responses = n()) %>%
+    mutate(Percentage = Responses / sum(Responses))
+
+    porcentajes_data$Frecuencia <- factor(porcentajes_data[[i]],
+                                          levels = c("No me parece útil", "Me gustaría hacerlo", "Lo he hecho"))
+  
+    for (j in 1:nrow(porcentajes_data) ) {
+        resultados_uso <- rbind( resultados_uso,
+                               data.frame(uso = i,
+                                          frequency = porcentajes_data[j,]$Frecuencia,
+                                          responses = porcentajes_data[j,]$Responses,
+                                          percentage = porcentajes_data[j,]$Percentage )
+      )
+    }
+
+  }
+
+```
+
+The same data in a table
+
+```{r tabla, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+library(kableExtra)
+
+resultados_uso$uso <- recode( resultados_uso$uso, 
+                              "administrativas" = "Administration",
+                              "burocracia" = "Bureaucracy",
+                              "calendario" = "Calendar",
+                              "comunicacion.profesorado" = "Interaction w/ teachers",
+                              "feedback" = "Help with feedback",
+                              "generar.material" = "Generate material",
+                              "preguntas.temario" = "Answer syllabus questions",
+                              "preparar.examen" = "Preparing exams",
+                              "profesor.particular" = "Private tutor",
+                              "resumen" = "Summarizing texts",
+                              "traduccion" = "Translate texts"
+)
+
+resultados_uso$frequency <- recode( resultados_uso$frequency,
+                                    "No me parece útil" = "It's not useful",
+                                    "Me gustaría hacerlo)" = "I'd like to use it",
+                                    "Lo he hecho" = "I've used it" )
+
+library(tidyr)
+
+table_use_frequency <- resultados_uso %>%
+  pivot_wider(id_cols = uso, names_from = c(frequency), values_from = responses)
+
+library(kableExtra)
+kable( table_use_frequency,
+       col.names = c("Usage level",c("It's not useful", "I'd like to use it", "I've used it") ),
+       align="c" ) %>% 
+  column_spec(1, bold = TRUE, width="15em") %>%
+  row_spec(0, bold = TRUE, background = "#D3D3D3")
+
+```
