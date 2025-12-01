@@ -43,8 +43,8 @@ resultados_uso$chatbot <- factor(resultados_uso$chatbot,
 )
 ggplot(resultados_uso, aes(x=chatbot, fill=frecuencia, y = porcentaje)) +
     geom_bar( stat="identity", position="dodge") +
-    labs(title=paste0("Frecuencia de uso ",i), x="Frecuencia", y="Proporción") +
+    labs(title=paste0("Frequency of use of specific chatbots"), x="Frequency", y="Proportion") +
     theme_minimal() +
     theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
-ggsave("figures/frecuencias-uso-chatbots-docentes.png", width = 10, height = 6)
+ggsave("figures/frecuencias-uso-chatbots-docentes-en.png", width = 10, height = 6)
