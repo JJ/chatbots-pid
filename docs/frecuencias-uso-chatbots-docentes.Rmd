@@ -1,0 +1,54 @@
+---
+title: "Frecuencia de uso de chatbots por docentes"
+author: "JJ Merelo"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, echo=FALSE, message=FALSE, warning=FALSE}
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+
+frecuencias_data <- read.csv("../data/chatbots-fecuencia-uso-chatbots-docentes.csv", header = TRUE, na.strings="", sep = ";")
+
+frecuencias_data$Discipline <- recode( frecuencias_data$Disciplina,
+                                      "FFL" = "Other",
+                                      "TIC" = "IT",
+                                      "Otras" = "Other"
+                                      )
+frecuencias_data$Frecuency.Chatbots <- factor(frecuencias_data$Frecuency.Chatbots,
+                                       levels = c("Nunca","Casi nunca","A veces","Casi siempre","Siempre")
+                                       )
+ggplot(frecuencias_data, aes(fill=Frecuency.Chatbots, y=Discipline)) +
+  geom_bar( position="dodge") +
+  labs(title="How often do teachers use chatbots?", x="Frequency", y="Count") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+Now as a table
+
+```{r tabla, echo=FALSE, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+library(kableExtra)
+
+resultados_uso <- frecuencias_data %>%
+  group_by(Discipline,Frecuency.Chatbots) %>%
+  summarise( Count = n() ) %>%
+  mutate( Percentage = Count / sum(Count) ) 
+
+resultados_uso$Count <- NULL
+resultados_uso$Frecuency.Chatbots <- factor(resultados_uso$Frecuency.Chatbots,
+                                       levels = c("Nunca","Casi nunca","A veces","Casi siempre","Siempre")
+                                       )
+
+options(knitr.kable.NA = 0)
+resultados_uso %>%
+  pivot_wider(names_from = Frecuency.Chatbots, values_from = Percentage, id_cols = Discipline) %>%
+  kable( digits=3,
+         col.names = c("Discipline", "Never", "Almost never","Sometimes","Almost always","Always"),
+         caption = "How often I have used chatbots",
+  ) %>%
+  kable_styling( full_width = FALSE )
+```
