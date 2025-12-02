@@ -1,0 +1,109 @@
+---
+title: "Teacher attitudes"
+author: "JJ Merelo"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+Frequency table
+
+```{r setup, echo=FALSE}
+library(ggplot2)
+library(dplyr)
+
+frecuencias_data <- read.csv("../data/actitudes-docentes.csv", header = TRUE, na.strings="", sep = ";")
+
+columnas <- strsplit("ayudan;dependencia-tecnológica;explicaciones-claras;información-segura;manejan-datos;mejorar-habilidades;no-pensamiento-crítico;no-respetan-privacidad;parte-integral;respuestas-confiables;ético", ";")
+
+likert_data <- data.frame( Attitude = character(),
+                           Disciplina = character(),
+                           Average = numeric(),
+                           SD = numeric() )
+
+opiniones_data <- data.frame( Attitude = character(),
+                              Disciplina = character(),
+                              Response = character(),
+                              Count = numeric(),
+                              Percentage = numeric() )
+
+for ( i in columnas[[1]] ) {
+  i <- gsub("-", ".", i)
+  frecuencias_uso_data  <-  data.frame(Disciplina = frecuencias_data$Disciplina,
+                                       frecuencias_data[i])
+
+  porcentajes_data <-  frecuencias_uso_data %>% group_by(Disciplina,.data[[i]]) %>%
+    summarise(Count = n())  %>% 
+    mutate( Percentage = Count / sum(Count) * 100 )
+  
+  porcentajes_data$Response <- porcentajes_data[[i]]
+  porcentajes_data$Attitude <- i
+  opiniones_data <- rbind( opiniones_data, porcentajes_data )
+  
+  porcentajes_data$Likert <- as.numeric( factor( porcentajes_data[[i]],
+                                      levels = c("Estoy en desacuerdo", "Más bien en desacuerdo","Ni estoy de acuerdo ni en desacuerdo", "Más bien de acuerdo", "Completamente de acuerdo" )
+                                      )
+                                )
+  
+  # compute weighted average of the Likert scale per Disciplina
+  promedio_data <- porcentajes_data %>% group_by(Disciplina) %>%
+    summarise(Average = sum(Likert * Count) / sum(Count),
+              SD = sqrt( sum( Count * (Likert - (sum(Likert * Count) / sum(Count)))^2 ) / sum(Count) )
+              )
+  
+  frecuencia_tabla <- table( unname(unlist(frecuencias_uso_data[i])), frecuencias_uso_data$Disciplina)
+  chisq_frecuencia <- chisq.test(frecuencia_tabla)
+  if ( chisq_frecuencia$p.value < 0.05 ) {
+    cat("✅ La prueba de chi-cuadrado indica que hay una diferencia significativa en la actitud 📈", i, "📈 con p-value ", chisq_frecuencia$p.value,"\n")
+  }
+  
+  promedio_data$Attitude <- i
+  likert_data <- rbind( likert_data, promedio_data )
+
+}
+
+ggplot( opiniones_data, aes(x=Response, fill=Disciplina, y = Percentage)) +
+  geom_bar( stat="identity", position="dodge") +
+  labs(title=paste0("Actitudes de los docentes sobre IA"), x="Frecuencia", y="Proporción") +
+  facet_wrap( ~ Attitude ) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+likert_data$Attitude <- recode( likert_data$Attitude,
+                                "ayudan" = "They help",
+                                "dependencia.tecnológica" = "Technological dependence",
+                                "explicaciones.claras" = "Clear explanations",
+                                "información.segura" = "Reliable information",
+                                "manejan.datos" = "Handle sensitive data",
+                                "mejorar.habilidades"= "Improve skills",
+                                "no.pensamiento.crítico"= "Hinder critical thinking",
+                                "no.respetan.privacidad"= "Disrespectful of privacy",
+                                "parte.integral"= "Integral part of education",
+                                "respuestas.confiables"= "Reliable answers",
+                                "ético"= "Ethical issues"
+                             )
+                                
+
+likert_data$Disciplina <- recode( likert_data$Disciplina,
+                                 "TIC" = "IT",
+                                 "Otras" = "Other"
+                                 )
+
+
+likert_data$average_and_sd <- paste0( round(likert_data$Average,2), " (", round(likert_data$SD,2), ")" )
+likert_data$Average <- NULL
+likert_data$SD <- NULL
+
+
+library(tidyr)
+
+likert_data %>%
+  pivot_wider(names_from = Disciplina, values_from = average_and_sd, id_cols= Attitude) -> likert_table
+
+likert_table <- likert_table[,c(1,3,2)]
+
+library(kableExtra)
+kable( likert_table,
+       align="c" )  %>%
+  column_spec(1, bold = TRUE, width="15em") %>%
+  row_spec(0, bold = TRUE, background = "#D3D3D3")
+```
