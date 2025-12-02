@@ -61,5 +61,14 @@ promedio_data <- porcentajes_data %>% group_by(Discipline) %>%
               SD = sqrt( sum( Número * (Likert - (sum(Likert * Número) / sum(Número)))^2 ) / sum(Número) )
               )
 
-write.csv(promedio_data, file = "../data/frecuencias-promedio-likert.csv", row.names = FALSE)
+porcentajes_data %>%
+  pivot_wider(names_from = Frecuencia, values_from = Número, id_cols = Discipline) -> tabla_frecuencias
+
+tabla_frecuencias <- tabla_frecuencias[,c(1,5,3,2,4,6)] 
+
+kable( tabla_frecuencias,
+         col.names = c("Discipline", "Never", "Almost never","Sometimes","Almost always","Always"),
+         caption = "How often is it used",
+  ) %>%
+  kable_styling( full_width = FALSE )
 ```
