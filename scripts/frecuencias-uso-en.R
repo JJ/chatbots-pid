@@ -27,8 +27,8 @@ for ( i in columnas[[1]] ) {
                                                    "Otras")
   )
   porcentajes_data$Discipline <- factor(porcentajes_data$Disciplina,
-                                      levels = c("FFL" = "Languages",
-                                                 "TIC" = "IT",
+                                      levels = c("FFL" = "Language-related",
+                                                 "TIC" = "ICT",
                                                  "Otras" = "Other"))
 
   ggplot(porcentajes_data, aes(x=Frequency, fill=Discipline, y = Proporción)) +
