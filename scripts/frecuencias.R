@@ -12,8 +12,8 @@ porcentajes_data$Disciplina <- factor(porcentajes_data$Disciplina,
                                                  "Otras")
                                       )
 porcentajes_data$Discipline <- recode(porcentajes_data$Disciplina,
-                                        "FFL" = "Languages",
-                                        "TIC" = "IT",
+                                        "FFL" = "Language-related",
+                                        "TIC" = "ICT",
                                         "Otras" = "Others"
                                         )
 porcentajes_data$Frecuencia <- factor(porcentajes_data$Frecuencia,
