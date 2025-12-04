@@ -111,9 +111,9 @@ opiniones_resumen_data$Attitude <- factor(opiniones_resumen_data$Attitude,
 
 ggplot( opiniones_resumen_data, aes(x=Attitude, y = Percentage, fill=Response)) +
   geom_bar( stat="identity", position="dodge") +
-  labs(title=paste0("Actitudes generales sobre IA"), x="Frecuencia", y="Proporción") +
+  labs(title=paste0("Teacher's opinions and attitudes towards AI"), x="Question", y="Percentage") +
   theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+  theme(axis.text.x = element_text(angle = 60, hjust = 1))
 
 ggplot( opiniones_data, aes(x=Response, fill=Disciplina, y = Percentage)) +
   geom_bar( stat="identity", position="dodge") +
