@@ -61,7 +61,6 @@ for ( i in columnas[[1]] ) {
                                                    "Prefiero no decirlo")
   )
 
-  # Filter out those rows with Genero as "Prefiero no decirlo"
   porcentajes_data <- porcentajes_data %>% filter(Genero != "Prefiero no decirlo")
 
   ggplot(porcentajes_data, aes(x=Frecuencia, fill=Genero, y = Proporción)) +
