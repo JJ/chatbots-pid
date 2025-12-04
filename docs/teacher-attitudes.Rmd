@@ -26,6 +26,11 @@ opiniones_data <- data.frame( Attitude = character(),
                               Count = numeric(),
                               Percentage = numeric() )
 
+opiniones_resumen_data <- data.frame( Attitude = character(),
+                                      Response = character(),
+                                      Count = numeric(),
+                                      Percentage = numeric() )
+
 for ( i in columnas[[1]] ) {
   i <- gsub("-", ".", i)
   frecuencias_uso_data  <-  data.frame(Disciplina = frecuencias_data$Disciplina,
@@ -38,6 +43,16 @@ for ( i in columnas[[1]] ) {
   porcentajes_data$Response <- porcentajes_data[[i]]
   porcentajes_data$Attitude <- i
   opiniones_data <- rbind( opiniones_data, porcentajes_data )
+  
+  porcentajes_absolutos_data <-  frecuencias_uso_data %>% group_by(.data[[i]]) %>%
+    summarise(Count = n())  %>% 
+    mutate( Percentage = Count / sum(Count) * 100 )
+  
+  porcentajes_absolutos_data$Response <- porcentajes_absolutos_data[[i]]
+  porcentajes_absolutos_data$Attitude <- i
+  porcentajes_absolutos_data[[i]] <- NULL
+  
+  opiniones_resumen_data <- rbind( opiniones_resumen_data, porcentajes_absolutos_data )
   
   porcentajes_data$Likert <- as.numeric( factor( porcentajes_data[[i]],
                                       levels = c("Estoy en desacuerdo", "Más bien en desacuerdo","Ni estoy de acuerdo ni en desacuerdo", "Más bien de acuerdo", "Completamente de acuerdo" )
@@ -60,6 +75,45 @@ for ( i in columnas[[1]] ) {
   likert_data <- rbind( likert_data, promedio_data )
 
 }
+
+opiniones_resumen_data$Attitude <- recode( opiniones_resumen_data$Attitude,
+                                "ayudan" = "They help",
+                                "dependencia.tecnológica" = "Technological dependence",
+                                "explicaciones.claras" = "Clear explanations",
+                                "información.segura" = "Secure information",
+                                "manejan.datos" = "Handle sensitive data",
+                                "mejorar.habilidades"= "Improve skills",
+                                "no.pensamiento.crítico"= "Hinder critical thinking",
+                                "no.respetan.privacidad"= "Disrespectful of privacy",
+                                "parte.integral"= "Integral part of education",
+                                "respuestas.confiables"= "Reliable answers",
+                                "ético"= "Ethical issues"
+                             )
+opiniones_resumen_data$Response <- recode( opiniones_resumen_data$Response,
+                                "Estoy en desacuerdo" = "Strongly disagree",
+                                "Más bien en desacuerdo" = "Somewhat disagree",
+                                "Ni estoy de acuerdo ni en desacuerdo" = "Neutral",
+                                "Más bien de acuerdo" = "Somewhat agree",
+                                "Completamente de acuerdo" = "Strongly agree"
+                             )
+
+
+opiniones_resumen_data$Response <- factor( opiniones_resumen_data$Response,
+                                      levels = c("Strongly disagree", "Somewhat disagree", "Neutral", "Somewhat agree", "Strongly agree" )
+                                      )
+
+opiniones_resumen_data$Attitude <- factor(opiniones_resumen_data$Attitude,
+                                          levels = opiniones_resumen_data %>%
+                                          filter(Response == "Somewhat agree") %>%
+                                          arrange(Percentage) %>% pull(Attitude)
+)
+
+
+ggplot( opiniones_resumen_data, aes(x=Attitude, y = Percentage, fill=Response)) +
+  geom_bar( stat="identity", position="dodge") +
+  labs(title=paste0("Actitudes generales sobre IA"), x="Frecuencia", y="Proporción") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 ggplot( opiniones_data, aes(x=Response, fill=Disciplina, y = Percentage)) +
   geom_bar( stat="identity", position="dodge") +
