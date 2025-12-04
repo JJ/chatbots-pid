@@ -138,7 +138,7 @@ likert_data$Attitude <- recode( likert_data$Attitude,
                                 
 
 likert_data$Disciplina <- recode( likert_data$Disciplina,
-                                 "TIC" = "IT",
+                                 "TIC" = "ICT",
                                  "Otras" = "Other"
                                  )
 
