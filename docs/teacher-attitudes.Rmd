@@ -16,7 +16,6 @@ frecuencias_data <- read.csv("../data/actitudes-docentes.csv", header = TRUE, na
 columnas <- strsplit("ayudan;dependencia-tecnológica;explicaciones-claras;información-segura;manejan-datos;mejorar-habilidades;no-pensamiento-crítico;no-respetan-privacidad;parte-integral;respuestas-confiables;ético", ";")
 
 likert_data <- data.frame( Attitude = character(),
-                           Disciplina = character(),
                            Average = numeric(),
                            SD = numeric() )
 
@@ -59,20 +58,21 @@ for ( i in columnas[[1]] ) {
                                       )
                                 )
   
-  # compute weighted average of the Likert scale per Disciplina
-  promedio_data <- porcentajes_data %>% group_by(Disciplina) %>%
-    summarise(Average = sum(Likert * Count) / sum(Count),
+  porcentajes_absolutos_data$Likert <- as.numeric( factor( porcentajes_absolutos_data$Response,
+                                      levels = c("Estoy en desacuerdo", "Más bien en desacuerdo","Ni estoy de acuerdo ni en desacuerdo", "Más bien de acuerdo", "Completamente de acuerdo" )
+                                      )
+                                )
+  promedio_data <- porcentajes_absolutos_data %>% summarise(Average = sum(Likert * Count) / sum(Count),
               SD = sqrt( sum( Count * (Likert - (sum(Likert * Count) / sum(Count)))^2 ) / sum(Count) )
               )
+  promedio_data$Attitude <- i
+  likert_data <- rbind( likert_data, promedio_data )
   
   frecuencia_tabla <- table( unname(unlist(frecuencias_uso_data[i])), frecuencias_uso_data$Disciplina)
   chisq_frecuencia <- chisq.test(frecuencia_tabla)
   if ( chisq_frecuencia$p.value < 0.05 ) {
     cat("✅ La prueba de chi-cuadrado indica que hay una diferencia significativa en la actitud 📈", i, "📈 con p-value ", chisq_frecuencia$p.value,"\n")
   }
-  
-  promedio_data$Attitude <- i
-  likert_data <- rbind( likert_data, promedio_data )
 
 }
 
@@ -135,29 +135,16 @@ likert_data$Attitude <- recode( likert_data$Attitude,
                                 "respuestas.confiables"= "Reliable answers",
                                 "ético"= "Ethical issues"
                              )
-                                
-
-likert_data$Disciplina <- recode( likert_data$Disciplina,
-                                 "TIC" = "ICT",
-                                 "Otras" = "Other"
-                                 )
-
 
 likert_data$average_and_sd <- paste0( round(likert_data$Average,2), " (", round(likert_data$SD,2), ")" )
 likert_data$Average <- NULL
 likert_data$SD <- NULL
 
-
 library(tidyr)
 
-likert_data %>%
-  pivot_wider(names_from = Disciplina, values_from = average_and_sd, id_cols= Attitude) -> likert_table
-
-likert_table <- likert_table[,c(1,3,2)]
-
 library(kableExtra)
-kable( likert_table,
-       align="c" )  %>%
+kable( likert_data,
+       align="c", col.names = c("Attitude", "Average (SD)") )  %>%
   column_spec(1, bold = TRUE, width="15em") %>%
   row_spec(0, bold = TRUE, background = "#D3D3D3")
 ```
