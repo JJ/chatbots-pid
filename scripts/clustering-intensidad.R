@@ -13,7 +13,7 @@ intensidad_vectores <- intensidad_vectores %>%
   select(-Disciplina)
 
 fviz_nbclust(intensidad_vectores, kmeans, method = "wss")
-ggsave("figures/nb-clusters-intensidad.png", width = 10, height = 6)
+# ggsave("figures/nb-clusters-intensidad.png", width = 10, height = 6)
 clusters <- kmeans(intensidad_vectores, centers = 3, nstart = 25)
 
 centers_df <- as.data.frame(clusters$centers)
@@ -48,7 +48,7 @@ ggplot(centers_to_plot, aes(x = as.factor(Variable), y = Value, group=Center,col
   theme(axis.text.x = element_text(face="bold", color="#993333", size=10, angle=45)) +
   guides(color=guide_legend(title="Cluster #"))
 
-ggsave("figures/centroides-clusters-intensidad-en.png", width = 10, height = 6)
+# ggsave("figures/centroides-clusters-intensidad-en.png", width = 10, height = 6)
 
 frecuencias_data$Cluster <- as.factor(clusters$cluster)
 
@@ -61,7 +61,7 @@ ggplot(porcentaje_disciplina_por_cluster, aes(x=Cluster, fill=Disciplina, y = Pr
   labs(title="Proporción de disciplinas por cluster de intensidad", x="Cluster", y="Proporción") +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
-ggsave("figures/porcentaje-disciplinas-por-cluster-intensidad.png", width = 10, height = 6)
+# ggsave("figures/porcentaje-disciplinas-por-cluster-intensidad.png", width = 10, height = 6)
 
 frecuencias_data %>% group_by( Disciplina, Cluster ) %>%
   summarise(Número = n()) %>%
@@ -72,7 +72,7 @@ ggplot(porcentaje_cluster_por_disciplina, aes(x=Disciplina, fill=Cluster, y = Pr
   labs(title="Proporción de clusters para cada disciplina", x="Disciplina", y="Proporción") +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
-ggsave("figures/porcentaje-cluster-por-disciplina-intensidad.png", width = 10, height = 6)
+# ggsave("figures/porcentaje-cluster-por-disciplina-intensidad.png", width = 10, height = 6)
 
 frecuencias_data %>% group_by( Cluster, Disciplina ) %>%
   summarise(Número = n()) %>%
@@ -84,8 +84,8 @@ cantidad_cluster_por_disciplina$Disciplina <- factor(cantidad_cluster_por_discip
                                                  "Otras")
 )
 cantidad_cluster_por_disciplina$Discipline <- recode(cantidad_cluster_por_disciplina$Disciplina,
-                                         "FFL" = "Languages",
-                                         "TIC" = "IT",
+                                         "FFL" = "Language-related",
+                                         "TIC" = "ICT",
                                          "Otras" = "Other")
 ggplot(cantidad_cluster_por_disciplina, aes(x=Cluster, fill=Discipline, y = Cantidad)) +
   geom_bar( stat="identity", position="stack") +
