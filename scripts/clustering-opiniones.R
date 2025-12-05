@@ -44,7 +44,7 @@ ggplot(centers_to_plot, aes(x = as.factor(Variable), y = Value, group=Center,col
                                    size=10, angle=45))+
   guides(color=guide_legend(title="Cluster #"))
 
-ggsave("figures/centroides-clusters-opiniones-en.png", width = 10, height = 6)
+# ggsave("figures/centroides-clusters-opiniones-en.png", width = 10, height = 6)
 
 frecuencias_data$Cluster <- as.factor(clusters$cluster)
 
@@ -64,7 +64,7 @@ ggplot(porcentaje_disciplina_por_cluster, aes(x=Cluster, fill=Disciplina, y = Pr
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
   guides(color=guide_legend(title="Cluster #"))
-ggsave("figures/porcentaje-disciplinas-por-cluster-opiniones.png", width = 10, height = 6)
+# ggsave("figures/porcentaje-disciplinas-por-cluster-opiniones.png", width = 10, height = 6)
 
 frecuencias_data %>% group_by( Disciplina, Cluster ) %>%
   summarise(Número = n()) %>%
@@ -75,7 +75,7 @@ ggplot(porcentaje_cluster_por_disciplina, aes(x=Disciplina, fill=Cluster, y = Pr
   labs(title="Proporción de clusters para cada disciplina", x="Disciplina", y="Proporción") +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
-ggsave("figures/porcentaje-cluster-por-disciplina-opiniones.png", width = 10, height = 6)
+# ggsave("figures/porcentaje-cluster-por-disciplina-opiniones.png", width = 10, height = 6)
 
 frecuencias_data %>% group_by( Cluster, Disciplina ) %>%
   summarise(Número = n()) %>%
@@ -88,8 +88,8 @@ cantidad_cluster_por_disciplina$Disciplina <- factor(cantidad_cluster_por_discip
 )
 
 cantidad_cluster_por_disciplina$Discipline <- recode(cantidad_cluster_por_disciplina$Disciplina,
-                                         "FFL" = "Languages",
-                                         "TIC" = "IT",
+                                         "FFL" = "Language-related",
+                                         "TIC" = "ICT",
                                          "Otras" = "Other")
 ggplot(cantidad_cluster_por_disciplina, aes(x=Cluster, fill=Discipline, y = Cantidad)) +
   geom_bar( stat="identity", position="stack") +
