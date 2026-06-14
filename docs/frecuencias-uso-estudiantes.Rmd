@@ -56,7 +56,7 @@ translated_labels <- c("Interaction w/ teachers",
                                "Summarizing texts",
                        "Answer syllabus questions",
                                "Generate material",
-                               "Preparing exams",
+                               "Prepare exercises",
                                "Translate texts")  
 ggplot(resultados_uso, aes(x=uso, fill=frecuencia, y = porcentaje)) +
   geom_bar( stat="identity", position="dodge") +

@@ -44,7 +44,7 @@ ggplot(centers_to_plot, aes(x = as.factor(Variable), y = Value, group=Center,col
                                    size=10, angle=45))+
   guides(color=guide_legend(title="Cluster #"))
 
-# ggsave("figures/centroides-clusters-opiniones-en.png", width = 10, height = 6)
+ggsave("figures/centroides-clusters-opiniones-en.png", width = 10, height = 6)
 
 frecuencias_data$Cluster <- as.factor(clusters$cluster)
 
