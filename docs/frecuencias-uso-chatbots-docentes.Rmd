@@ -14,7 +14,7 @@ frecuencias_data <- read.csv("../data/chatbots-fecuencia-uso-chatbots-docentes.c
 
 frecuencias_data$Discipline <- recode( frecuencias_data$Disciplina,
                                       "FFL" = "Other",
-                                      "TIC" = "IT",
+                                      "TIC" = "ICT",
                                       "Otras" = "Other"
                                       )
 frecuencias_data$Frecuency.Chatbots <- factor(frecuencias_data$Frecuency.Chatbots,
