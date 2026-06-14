@@ -23,9 +23,10 @@ centers_to_plot <- centers_df %>%
                 "ayudan" = 1, "dependencia.tecnológica" = 8, "explicaciones.claras" = 3, "información.segura" = 11, "manejan.datos" = 5, "mejorar.habilidades"=2,"no.pensamiento.crítico"=9,"no.respetan.privacidad"=10,"parte.integral"=7,"respuestas.confiables"=4,"ético"=6)) %>%
   arrange(Center, Variable)
 
-ggplot(centers_to_plot, aes(x = as.factor(Variable), y = Value, group=Center,color= as.factor(Center))) +
+centers_to_plot$Center <- as.factor(centers_to_plot$Center)
+ggplot(centers_to_plot, aes(x = as.factor(Variable), y = Value, group=Center,color= Center, shape=Center)) +
   geom_line() +
-  geom_point() +
+  geom_point(size=3) +
   labs(title = "Centroids of the opinion clusters", y = "Centroide value") +
   scale_x_discrete(name="Opinions",
                    labels = c("1"="Helpful",

@@ -47,17 +47,17 @@ resultados_uso$uso <- factor(resultados_uso$uso,
                                filter(frecuencia == "Lo he hecho") %>%
                                arrange(porcentaje) %>% pull(uso)
                              )
-translated_labels <- c("Interaction w/ teachers",
-                               "Calendar",
-                               "Administration",
+translated_labels <- c("Communication prof.",
+                       "Calendar",
+                               "Administrative",
                                "Bureaucracy",
-                               "Help with feedback",
+                               "Feedback",
                                "Private tutor",
-                               "Summarizing texts",
-                       "Answer syllabus questions",
+                               "Summary",
+                               "Answer syllabus questions",
                                "Generate material",
                                "Prepare exercises",
-                               "Translate texts")  
+                               "Translation")  
 ggplot(resultados_uso, aes(x=uso, fill=frecuencia, y = porcentaje)) +
   geom_bar( stat="identity", position="dodge") +
   labs(title="Students's use of chatbots", x="Application", y="Proportion", fill="Frequency") +
