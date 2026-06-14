@@ -41,11 +41,12 @@ ggplot(centers_to_plot,
   geom_point( size=3) +
   labs(title = "Intensity clusters centroids", y = "Centroid value") +
   scale_x_discrete(name="Application",
-                   labels = c("8" ="Administration", "9"="Bureaucracy",
-                              "10"="Calendar", "11"="Interaction w/ teachers",
-                              "4"="Help with feedback", "5"="Generate material",
+                   labels = c("8" ="Administrative", "9"="Bureaucracy",
+                              "10"="Calendar", "11"="Communication prof.",
+                              "4"="Feedback", "5"="Generate material",
                               "1"="Answer syllabus questions",
-                              "2"="Prepare exercises", "3"="Private tutor", "6"="Summarizing texts", "7"="Translate texts")) +
+                              "2"="Prepare exercises", "3"="Private tutor",
+                              "6"="Summary", "7"="Translation")) +
   theme_minimal()+
   theme(axis.text.x = element_text(face="bold", color="#993333", size=10, angle=45)) +
   guides(color=guide_legend(title="Cluster #"))
