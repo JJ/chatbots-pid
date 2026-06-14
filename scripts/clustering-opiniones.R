@@ -29,7 +29,7 @@ ggplot(centers_to_plot, aes(x = as.factor(Variable), y = Value, group=Center,col
   labs(title = "Centroids of the opinion clusters", y = "Centroide value") +
   scale_x_discrete(name="Opinions",
                    labels = c("1"="Helpful",
-                              "8"="Tech cependence",
+                              "8"="Tech dependence",
                               "3"= "Clear explanation",
                               "11"="Biased information",
                               "5"= "Sensitive data",
