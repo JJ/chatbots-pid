@@ -49,7 +49,7 @@ ggplot(centers_to_plot,
                               "6"="Summary", "7"="Translation")) +
   theme_minimal()+
   theme(axis.text.x = element_text(face="bold", color="#993333", size=10, angle=45)) +
-  guides(color=guide_legend(title="Cluster #"))
+  guides(color=guide_legend(title="Cluster #"),shape="none")
 
 ggsave("figures/centroides-clusters-intensidad-en.png", width = 10, height = 6)
 

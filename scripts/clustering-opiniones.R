@@ -27,7 +27,7 @@ centers_to_plot$Center <- as.factor(centers_to_plot$Center)
 ggplot(centers_to_plot, aes(x = as.factor(Variable), y = Value, group=Center,color= Center, shape=Center)) +
   geom_line() +
   geom_point(size=3) +
-  labs(title = "Centroids of the opinion clusters", y = "Centroide value") +
+  labs(title = "Centroids of the opinion clusters", y = "Centroid value") +
   scale_x_discrete(name="Opinions",
                    labels = c("1"="Helpful",
                               "8"="Tech dependence",
@@ -43,7 +43,7 @@ ggplot(centers_to_plot, aes(x = as.factor(Variable), y = Value, group=Center,col
   theme_minimal()+
   theme(axis.text.x = element_text(face="bold", color="#993333",
                                    size=10, angle=45))+
-  guides(color=guide_legend(title="Cluster #"))
+  guides(color=guide_legend(title="Cluster #"),shape="none")
 
 ggsave("figures/centroides-clusters-opiniones-en.png", width = 10, height = 6)
 
