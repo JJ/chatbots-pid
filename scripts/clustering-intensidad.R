@@ -34,9 +34,11 @@ centers_to_plot <- centers_df %>%
                   `traduccion` = 7)) %>%
   arrange(Center, Variable)
 
-ggplot(centers_to_plot, aes(x = as.factor(Variable), y = Value, group=Center,color= as.factor(Center))) +
+centers_to_plot$Center <- as.factor(centers_to_plot$Center)
+ggplot(centers_to_plot,
+       aes(x = as.factor(Variable), y = Value, group=Center,color= Center,shape=Center)) +
   geom_line() +
-  geom_point() +
+  geom_point( size=3) +
   labs(title = "Intensity clusters centroids", y = "Centroid value") +
   scale_x_discrete(name="Application",
                    labels = c("8" ="Administration", "9"="Bureaucracy",
