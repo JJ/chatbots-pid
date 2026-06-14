@@ -60,7 +60,8 @@ translated_labels <- c("Interaction w/ teachers",
                                "Translate texts")  
 ggplot(resultados_uso, aes(x=uso, fill=frecuencia, y = porcentaje)) +
   geom_bar( stat="identity", position="dodge") +
-  labs(title="Students's use of chatbots", x="Application", y="Proportion") +
+  labs(title="Students's use of chatbots", x="Application", y="Proportion", fill="Frequency") +
+  scale_fill_discrete( labels = c("I don't find it useful","I'd like to do it","I have done it"))+
   scale_x_discrete( labels = translated_labels ) +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 60, hjust = 1))
